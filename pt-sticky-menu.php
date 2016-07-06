@@ -45,7 +45,11 @@ class PT_Sticky_Menu {
 
 		// Display sticky menu HTML output in the footer if sticky menu is enabled in customizer.
 		add_action( 'wp_footer', array( $this, 'sticky_menu_output' ) );
+
+		// Add the body class, when sticky menu is enabled.
+		add_filter( 'body_class', array( $this, 'body_class' ) );
 	}
+
 
 	/**
 	 * Returns the *Singleton* instance of this class.
@@ -60,6 +64,7 @@ class PT_Sticky_Menu {
 		return static::$instance;
 	}
 
+
 	/**
 	 * Register customizer controls, settings and other things.
 	 *
@@ -70,6 +75,7 @@ class PT_Sticky_Menu {
 	public function register_customizer( $wp_customize ) {
 		new PT_Sticky_Menu_Customizer( $wp_customize );
 	}
+
 
 	/**
 	 * Sticky menu HTML output.
@@ -180,6 +186,21 @@ class PT_Sticky_Menu {
 
 
 	/**
+	 * Append the right body classes to the <body>
+	 *
+	 * @param  array $classes Array of already defined classes.
+	 * @return array
+	 */
+	public function body_class( $classes ) {
+		if ( get_theme_mod( 'sticky_menu_select', $this->default_settings['sticky_selected'] ) ) {
+			$classes[] = 'sticky-navigation';
+		}
+
+		return $classes;
+	}
+
+
+	/**
 	 * Helper function: Get logo dimensions from the db.
 	 *
 	 * @param  string $theme_mod theme mod where the array with width and height is saved.
@@ -196,12 +217,14 @@ class PT_Sticky_Menu {
 		}
 	}
 
+
 	/**
 	 * Private clone method to prevent cloning of the instance of the *Singleton* instance.
 	 *
 	 * @return void
 	 */
 	private function __clone() {}
+
 
 	/**
 	 * Private unserialize method to prevent unserializing of the *Singleton* instance.
