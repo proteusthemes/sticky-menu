@@ -184,6 +184,3 @@ class PT_Sticky_Menu {
 	 */
 	private function __wakeup() {}
 }
-
-// Single instance.
-$pt_sticky_menu = PT_Sticky_Menu::get_instance();
