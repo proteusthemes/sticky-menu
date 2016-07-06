@@ -5,8 +5,6 @@
  * @package pt-sticky-menu
  */
 
-namespace ProteusThemes\StickyMenu;
-
 /**
  * Contains settings, controls, methods for the PT sticky menu customizer.
  */

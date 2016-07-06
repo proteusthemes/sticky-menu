@@ -5,8 +5,6 @@
  * @package pt-sticky-menu
  */
 
-namespace ProteusThemes\StickyMenu;
-
 /**
  * Sticky menu class. *Singleton*
  */

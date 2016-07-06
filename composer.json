@@ -14,8 +14,6 @@
     }
   ],
   "autoload": {
-    "psr-4": {
-      "ProteusThemes\\StickyMenu\\": ""
-    }
+    "classmap": [ "pt-sticky-menu.php", "inc/" ]
   }
 }
