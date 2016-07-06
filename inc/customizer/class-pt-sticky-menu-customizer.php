@@ -47,10 +47,10 @@ class PT_Sticky_Menu_Customizer {
 		$settings_defaults = apply_filters( 'pt-sticky-menu/settings_default', array(
 			'sticky_selected' => false,
 			'fp_select'       => 'none',
-			'fp_custom_text'  => '',
-			'fp_cutsom_url'   => '',
+			'fp_custom_text'  => 'Featured Page',
+			'fp_cutsom_url'   => '#',
 			'fp_new_window'   => false,
-			'fp_icon'         => '',
+			'fp_icon'         => 'fa-home',
 			'fp_bg_color'     => '#ffffff',
 		) );
 

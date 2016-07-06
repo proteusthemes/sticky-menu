@@ -18,14 +18,32 @@ class PT_Sticky_Menu {
 	private static $instance;
 
 	/**
+	 * Default Customizer settings.
+	 *
+	 * @var array
+	 */
+	private $default_settings;
+
+	/**
 	 * PT_Sticky_Menu construct function.
 	 */
 	protected function __construct() {
 
+		// Get default customizer settings.
+		$this->default_settings = apply_filters( 'pt-sticky-menu/settings_default', array(
+			'sticky_selected' => false,
+			'fp_select'       => 'none',
+			'fp_custom_text'  => 'Featured Page',
+			'fp_cutsom_url'   => '#',
+			'fp_new_window'   => false,
+			'fp_icon'         => 'fa-home',
+			'fp_bg_color'     => '#ffffff',
+		) );
+
 		// Register customizer.
 		add_action( 'customize_register', array( $this, 'register_customizer' ) );
 
-		// Display sticky menu if sticky menu is enabled in customizer.
+		// Display sticky menu HTML output in the footer if sticky menu is enabled in customizer.
 		add_action( 'wp_footer', array( $this, 'sticky_menu_output' ) );
 	}
 
@@ -45,6 +63,8 @@ class PT_Sticky_Menu {
 	/**
 	 * Register customizer controls, settings and other things.
 	 *
+	 * PT_Sticky_Menu_Customizer class will be auto-loaded with PHP composer.
+	 *
 	 * @param WP_Customize_Manager $wp_customize The customizer manager.
 	 */
 	public function register_customizer( $wp_customize ) {
@@ -58,7 +78,7 @@ class PT_Sticky_Menu {
 
 		// Display sticky menu if sticky menu is enabled in customizer.
 		// The condition has to be here, otherwise the customizer refresh is not working.
-		if ( get_theme_mod( 'sticky_menu_select' ) ) :
+		if ( get_theme_mod( 'sticky_menu_select', $this->default_settings['sticky_selected'] ) ) :
 	?>
 
 		<div class="sticky-menu__container">
@@ -66,8 +86,13 @@ class PT_Sticky_Menu {
 			<div class="sticky-menu__logo">
 				<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
 					<?php
-					$logo   = get_theme_mod( apply_filters( 'pt-sticky-menu/logo_get_theme_mod_name', 'logo_img' ), false );
-					$logo2x = get_theme_mod( apply_filters( 'pt-sticky-menu/logo_retina_get_theme_mod_name', 'logo2x_img' ), false );
+					// Get logo theme_mod names for the logo.
+					$logo_settings = apply_filters( 'pt-sticky-menu/logo_mod_names', array(
+						'logo'        => 'logo_img',
+						'retina_logo' => 'logo2x_img',
+					) );
+					$logo   = get_theme_mod( $logo_settings['logo'], false );
+					$logo2x = get_theme_mod( $logo_settings['retina_logo'], false );
 
 					if ( ! empty( $logo ) ) :
 					?>
@@ -84,6 +109,7 @@ class PT_Sticky_Menu {
 			<!-- Main Navigation -->
 			<nav class="sticky-menu__navigation  collapse  navbar-toggleable-md  js-sticky-offset" id="main-navigation" aria-label="<?php esc_html_e( 'Main Menu', 'pt-sticky-menu' ); ?>">
 					<?php
+					// Get menu location.
 					$menu_location = apply_filters( 'pt-sticky-menu/theme_menu_location', 'main-menu' );
 
 					if ( has_nav_menu( $menu_location ) ) {
@@ -99,18 +125,18 @@ class PT_Sticky_Menu {
 			</nav>
 			<?php
 			// Display the Call-to-Action button if the page is selected in customizer.
-			$selected_page = get_theme_mod( 'sticky_menu_featured_page_select', 'none' );
+			$selected_page = get_theme_mod( 'sticky_menu_featured_page_select', $this->default_settings['fp_select'] );
 
 			if ( 'none' !== $selected_page ) :
 				$cta = array();
-				$cta['target'] = get_theme_mod( 'sticky_menu_featured_page_open_in_new_window', '' ) ? '_blank' : '_self';
-				$cta['icon']   = get_theme_mod( 'sticky_menu_featured_page_icon', '' );
+				$cta['target'] = get_theme_mod( 'sticky_menu_featured_page_open_in_new_window', $this->default_settings['fp_new_window'] ) ? '_blank' : '_self';
+				$cta['icon']   = get_theme_mod( 'sticky_menu_featured_page_icon', $this->default_settings['fp_icon'] );
 				$cta['text']   = '';
 				$cta['url']    = '';
 
 				if ( 'custom-url' === $selected_page ) {
-					$cta['text'] = get_theme_mod( 'sticky_menu_featured_page_custom_text', 'Featured Page' );
-					$cta['url']  = get_theme_mod( 'sticky_menu_featured_page_custom_url', '#' );
+					$cta['text'] = get_theme_mod( 'sticky_menu_featured_page_custom_text', $this->default_settings['fp_custom_text'] );
+					$cta['url']  = get_theme_mod( 'sticky_menu_featured_page_custom_url', $this->default_settings['fp_cutsom_url'] );
 				}
 				else {
 					$cta['text'] = get_the_title( absint( $selected_page ) );
@@ -154,10 +180,10 @@ class PT_Sticky_Menu {
 
 
 	/**
-	 * Get logo dimensions from the db.
+	 * Helper function: Get logo dimensions from the db.
 	 *
 	 * @param  string $theme_mod theme mod where the array with width and height is saved.
-	 * @return mixed             string or FALSE
+	 * @return string
 	 */
 	private function get_logo_dimensions( $theme_mod = 'logo_dimensions_array' ) {
 		$width_height_array = get_theme_mod( $theme_mod );
