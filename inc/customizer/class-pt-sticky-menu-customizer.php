@@ -28,7 +28,7 @@ class PT_Sticky_Menu_Customizer {
 		// Set the private property to instance of wp_manager.
 		$this->wp_customize = $wp_manager;
 
-		// Register the settings/panels/sections/controls, main method.
+		// Register the sections/settings/controls, main method.
 		$this->register();
 	}
 
@@ -38,67 +38,98 @@ class PT_Sticky_Menu_Customizer {
 	 */
 	public function register() {
 
+		// Get filter data.
+		$theme_panel = apply_filters( 'pt-sticky-menu/theme_panel', array(
+			'panel'    => 'panel_autopt',
+			'priority' => 31,
+		) );
+
+		$settings_defaults = apply_filters( 'pt-sticky-menu/settings_default', array(
+			'sticky_selected' => false,
+			'fp_select'       => 'none',
+			'fp_custom_text'  => '',
+			'fp_cutsom_url'   => '',
+			'fp_new_window'   => false,
+			'fp_icon'         => '',
+			'fp_bg_color'     => '#ffffff',
+		) );
+
 		// Section.
-		$this->wp_customize->add_section( 'autopt_section_sticky_menu', array(
-			'title'       => esc_html__( 'Sticky Menu', 'auto-pt' ),
-			'description' => esc_html__( 'Settings for the sticky menu', 'auto-pt' ),
-			'priority'    => 31,
-			'panel'       => 'panel_autopt',
+		$this->wp_customize->add_section( 'sticky_menu_section', array(
+			'title'       => esc_html__( 'Sticky Menu', 'pt-sticky-menu' ),
+			'description' => esc_html__( 'Settings for the sticky menu', 'pt-sticky-menu' ),
+			'priority'    => $theme_panel['priority'],
+			'panel'       => $theme_panel['panel'],
 		) );
 
 		// Settings.
-		$this->wp_customize->add_setting( 'sticky_menu_select' );
-		$this->wp_customize->add_setting( 'sticky_menu_featured_page_select', array( 'default' => 'none' ) );
-		$this->wp_customize->add_setting( 'sticky_menu_featured_page_custom_text' );
-		$this->wp_customize->add_setting( 'sticky_menu_featured_page_custom_url' );
-		$this->wp_customize->add_setting( 'sticky_menu_featured_page_open_in_new_window' );
-		$this->wp_customize->add_setting( 'sticky_menu_featured_page_icon' );
-		$this->wp_customize->add_setting( 'sticky_menu_bg_color', array( 'default' => '#ffffff' ) );
+		$this->wp_customize->add_setting( 'sticky_menu_select', array(
+			'default' => $settings_defaults['sticky_selected'],
+		) );
+		$this->wp_customize->add_setting( 'sticky_menu_featured_page_select', array(
+			'default' => $settings_defaults['fp_select'],
+		) );
+		$this->wp_customize->add_setting( 'sticky_menu_featured_page_custom_text', array(
+			'default' => $settings_defaults['fp_custom_text'],
+		) );
+		$this->wp_customize->add_setting( 'sticky_menu_featured_page_custom_url', array(
+			'default' => $settings_defaults['fp_cutsom_url'],
+		) );
+		$this->wp_customize->add_setting( 'sticky_menu_featured_page_open_in_new_window', array(
+			'default' => $settings_defaults['fp_new_window'],
+		) );
+		$this->wp_customize->add_setting( 'sticky_menu_featured_page_icon', array(
+			'default' => $settings_defaults['fp_icon'],
+		) );
+		$this->wp_customize->add_setting( 'sticky_menu_bg_color', array(
+			'default' => $settings_defaults['fp_bg_color'],
+		) );
 
 		// Controls.
 		$this->wp_customize->add_control( 'sticky_menu_select', array(
-			'type'        => 'checkbox',
-			'priority'    => 111,
-			'label'       => esc_html__( 'Enable sticky menu', 'auto-pt' ),
-			'section'     => 'autopt_section_sticky_menu',
+			'type'     => 'checkbox',
+			'priority' => 10,
+			'label'    => esc_html__( 'Enable sticky menu', 'pt-sticky-menu' ),
+			'section'  => 'sticky_menu_section',
 		) );
 
 		$this->wp_customize->add_control( 'sticky_menu_featured_page_select', array(
-			'type'        => 'select',
-			'priority'    => 113,
-			'label'       => esc_html__( 'Featured page', 'auto-pt' ),
-			'description' => esc_html__( 'To which page should the Call-to-action button link to?', 'auto-pt' ),
-			'section'     => 'autopt_section_sticky_menu',
-			'choices'     => $this->get_all_pages_id_title(),
+			'type'            => 'select',
+			'priority'        => 20,
+			'label'           => esc_html__( 'Featured page', 'pt-sticky-menu' ),
+			'description'     => esc_html__( 'To which page should the Call-to-action button link to?', 'pt-sticky-menu' ),
+			'section'         => 'sticky_menu_section',
+			'choices'         => $this->get_all_pages_id_title(),
 			'active_callback' => array( $this, 'is_sticky_menu_selected' ),
 		) );
 
 		$this->wp_customize->add_control( 'sticky_menu_featured_page_custom_text', array(
-			'priority'    => 115,
-			'label'       => esc_html__( 'Custom Button Text', 'auto-pt' ),
-			'section'     => 'autopt_section_sticky_menu',
+			'priority'        => 30,
+			'label'           => esc_html__( 'Custom button text', 'pt-sticky-menu' ),
+			'section'         => 'sticky_menu_section',
 			'active_callback' => array( $this, 'is_featured_page_custom_url' ),
 		) );
 
 		$this->wp_customize->add_control( 'sticky_menu_featured_page_custom_url', array(
-			'priority'    => 117,
-			'label'       => esc_html__( 'Custom URL', 'auto-pt' ),
-			'section'     => 'autopt_section_sticky_menu',
+			'priority'        => 40,
+			'label'           => esc_html__( 'Custom URL', 'pt-sticky-menu' ),
+			'section'         => 'sticky_menu_section',
 			'active_callback' => array( $this, 'is_featured_page_custom_url' ),
 		) );
 
 		$this->wp_customize->add_control( 'sticky_menu_featured_page_open_in_new_window', array(
-			'type'        => 'checkbox',
-			'priority'    => 120,
-			'label'       => esc_html__( 'Open link in a new window/tab.', 'auto-pt' ),
-			'section'     => 'autopt_section_sticky_menu',
+			'type'            => 'checkbox',
+			'priority'        => 50,
+			'label'           => esc_html__( 'Open link in a new window/tab?', 'pt-sticky-menu' ),
+			'section'         => 'sticky_menu_section',
 			'active_callback' => array( $this, 'is_featured_page_selected' ),
 		) );
 
 		$this->wp_customize->add_control( 'sticky_menu_featured_page_icon', array(
-			'priority'    => 121,
-			'label'       => esc_html__( 'Insert font Awesome Icon:', 'auto-pt' ),
-			'section'     => 'autopt_section_sticky_menu',
+			'priority'        => 60,
+			'label'           => esc_html__( 'Font Awesome icon', 'pt-sticky-menu' ),
+			'description'     => sprintf( esc_html__( 'Insert a %s icon. Example: fa-home.', 'pt-sticky-menu' ), '<a href="http://fontawesome.io/icons/" target="_blank">Font Awesome</a>' ),
+			'section'         => 'sticky_menu_section',
 			'active_callback' => array( $this, 'is_featured_page_selected' ),
 		) );
 
@@ -106,9 +137,9 @@ class PT_Sticky_Menu_Customizer {
 			$this->wp_customize,
 			'sticky_menu_bg_color',
 			array(
-				'priority'    => 123,
-				'label'       => esc_html__( 'Sticky menu background color', 'auto-pt' ),
-				'section'     => 'autopt_section_sticky_menu',
+				'priority'        => 70,
+				'label'           => esc_html__( 'Sticky menu background color', 'pt-sticky-menu' ),
+				'section'         => 'sticky_menu_section',
 				'active_callback' => array( $this, 'is_sticky_menu_selected' ),
 			)
 		) );
@@ -132,8 +163,8 @@ class PT_Sticky_Menu_Customizer {
 
 		// Create the pages map with the default value of none and the custom url option.
 		$featured_page_choices               = array();
-		$featured_page_choices['none']       = esc_html__( 'None', 'auto-pt' );
-		$featured_page_choices['custom-url'] = esc_html__( 'Custom URL', 'auto-pt' );
+		$featured_page_choices['none']       = esc_html__( 'None', 'pt-sticky-menu' );
+		$featured_page_choices['custom-url'] = esc_html__( 'Custom URL', 'pt-sticky-menu' );
 
 		// Parse through the objects returned and add the key value pairs to the featured_page_choices map.
 		foreach ( $pages as $page ) {

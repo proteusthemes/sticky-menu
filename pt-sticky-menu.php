@@ -82,7 +82,7 @@ class PT_Sticky_Menu {
 				</a>
 			</div>
 			<!-- Main Navigation -->
-			<nav class="sticky-menu__navigation  collapse  navbar-toggleable-md  js-sticky-offset" id="main-navigation" aria-label="<?php esc_html_e( 'Main Menu', 'auto-pt' ); ?>">
+			<nav class="sticky-menu__navigation  collapse  navbar-toggleable-md  js-sticky-offset" id="main-navigation" aria-label="<?php esc_html_e( 'Main Menu', 'pt-sticky-menu' ); ?>">
 					<?php
 					$menu_location = apply_filters( 'pt-sticky-menu/theme_menu_location', 'main-menu' );
 
@@ -145,7 +145,7 @@ class PT_Sticky_Menu {
 			</div>
 			<!-- Hamburger Menu for tablet -->
 			<div class="sticky-menu__hamburger">
-				<button class="btn  btn-dark  header__navbar-toggler  hidden-lg-up" type="button" data-toggle="collapse" data-target="#main-navigation"><i class="fa  fa-bars  hamburger"></i> <?php esc_html_e( 'MENU' , 'auto-pt' ); ?></button>
+				<button class="btn  btn-dark  header__navbar-toggler  hidden-lg-up" type="button" data-toggle="collapse" data-target="#main-navigation"><i class="fa  fa-bars  hamburger"></i> <?php esc_html_e( 'MENU' , 'pt-sticky-menu' ); ?></button>
 			</div>
 		</div>
 	<?php
