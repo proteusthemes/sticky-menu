@@ -81,9 +81,9 @@ class PT_Sticky_Menu {
 		if ( get_theme_mod( 'sticky_menu_select', $this->default_settings['sticky_selected'] ) ) :
 	?>
 
-		<div class="sticky-menu__container">
+		<div class="pt-sticky-menu">
 			<!-- Logo and site name -->
-			<div class="sticky-menu__logo">
+			<div class="pt-sticky-menu__logo">
 				<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
 					<?php
 					// Get logo theme_mod names for the logo.
@@ -107,7 +107,7 @@ class PT_Sticky_Menu {
 				</a>
 			</div>
 			<!-- Main Navigation -->
-			<nav class="sticky-menu__navigation  collapse  navbar-toggleable-md  js-sticky-offset" id="main-navigation" aria-label="<?php esc_html_e( 'Main Menu', 'pt-sticky-menu' ); ?>">
+			<nav class="pt-sticky-menu__navigation  collapse  navbar-toggleable-md  js-sticky-offset" id="main-navigation" aria-label="<?php esc_html_e( 'Main Menu', 'pt-sticky-menu' ); ?>">
 					<?php
 					// Get menu location.
 					$menu_location = apply_filters( 'pt-sticky-menu/theme_menu_location', 'main-menu' );
@@ -147,7 +147,7 @@ class PT_Sticky_Menu {
 				ob_start();
 			?>
 				<!-- Call to Action -->
-				<div class="sticky-menu__call-to-action">
+				<div class="pt-sticky-menu__call-to-action">
 					<a class="btn  btn-primary" target="<?php echo esc_attr( $cta['target'] ); ?>" href="<?php echo esc_url( $cta['url'] ); ?>">
 						<?php if ( ! empty( $cta['icon'] ) ) : ?>
 							<i class="fa  <?php echo esc_attr( $cta['icon'] ); ?>"></i>
@@ -164,13 +164,13 @@ class PT_Sticky_Menu {
 			endif;
 			?>
 			<!-- Back to top button for Main Navigation on mobile -->
-			<div class="sticky-menu__back-to-top">
+			<div class="pt-sticky-menu__back-to-top">
 				<a href="#" class="btn  btn-primary">
 					<i class="fa fa-chevron-up"></i>
 				</a>
 			</div>
 			<!-- Hamburger Menu for tablet -->
-			<div class="sticky-menu__hamburger">
+			<div class="pt-sticky-menu__hamburger">
 				<button class="btn  btn-dark  header__navbar-toggler  hidden-lg-up" type="button" data-toggle="collapse" data-target="#main-navigation"><i class="fa  fa-bars  hamburger"></i> <?php esc_html_e( 'MENU' , 'pt-sticky-menu' ); ?></button>
 			</div>
 		</div>

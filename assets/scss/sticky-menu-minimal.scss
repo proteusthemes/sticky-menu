@@ -1,0 +1,14 @@
+.is-sticky-nav {
+	.pt-sticky-menu {
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 5;
+	}
+
+	&.admin-bar {
+		.pt-sticky-menu {
+			top: ptr(32);
+		}
+	}
+}
