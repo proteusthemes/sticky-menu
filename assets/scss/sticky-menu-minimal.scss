@@ -1,5 +1,10 @@
+.pt-sticky-menu {
+	display: none;
+}
+
 .is-sticky-nav {
 	.pt-sticky-menu {
+		display: block;
 		position: fixed;
 		width: 100%;
 		top: 0;

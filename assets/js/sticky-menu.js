@@ -14,6 +14,9 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 
 	var StickyMenu = function() {
 
+		// Set the initial windowTop position.
+		this.windowTop = $( window ).scrollTop();
+
 		// Set the initial config.stickyOffsetClass class to the appropriate DOM element.
 		this.setStickyOffsetClass();
 
@@ -57,15 +60,27 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 		 */
 		addStickyNavbar: function () {
 			$( window ).on( 'scroll.ptStickyMenu', _.bind( _.throttle( function() {
-				$( 'body' ).toggleClass( 'is-sticky-nav', $( window ).scrollTop() > ( this.stickyOffset - this.getAdminBarHeight() ) );
-			}, 20 ), this ) ); // Only trigered once every 20ms = 50 fps = very cool for performance.
+				if ( 0 > this.getScrollDirection() ) {
+					$( 'body' ).toggleClass( 'is-sticky-nav', $( window ).scrollTop() > ( this.stickyOffset - this.getAdminBarHeight() ) );
+				}
+				else {
+					this.hideStickyNavbar();
+				}
+			}, 250 ), this ) ); // Only trigered once every 20ms = 50 fps = very cool for performance.
 		},
 
 		/**
-		 * Remove the sticky menu (remove the class '.is-sticky-nav' from the body).
+		 * Remove the sticky menu (remove the class '.is-sticky-nav' from the body and remove the scroll event).
 		 */
 		removeStickyNavbar: function () {
 			$( window ).off( 'scroll.ptStickyMenu' );
+			this.hideStickyNavbar();
+		},
+
+		/**
+		 * Hide the sticky menu (remove the class '.is-sticky-nav' from the body).
+		 */
+		hideStickyNavbar: function () {
 			$( 'body' ).removeClass( 'is-sticky-nav' );
 		},
 
@@ -95,7 +110,7 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 		},
 
 		/**
-		 * Remove the sticky menu (remove the class '.is-sticky-nav' from the body).
+		 * Get the WP admin bar height.
 		 */
 		getAdminBarHeight: function () {
 			if ( $( 'body' ).hasClass( 'admin-bar' ) && 'fixed' === $( '#wpadminbar' ).css( 'position' ) ) {
@@ -103,6 +118,17 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 			}
 
 			return 0;
+		},
+
+		/**
+		 * Get the direction of scroll (negative value = up, positive value = down).
+		 */
+		getScrollDirection: function () {
+			var currentWindowTop = $( window ).scrollTop(),
+					value            = currentWindowTop - this.windowTop;
+
+			this.windowTop = currentWindowTop;
+			return value;
 		},
 	} );
 
