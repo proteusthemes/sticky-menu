@@ -154,7 +154,7 @@ class PT_Sticky_Menu {
 					ob_start();
 				?>
 					<!-- Call to Action -->
-					<div class="pt-sticky-menu__call-to-action">
+					<div class="pt-sticky-menu__call-to-action  hidden-xs-down">
 						<a class="btn  btn-primary" target="<?php echo esc_attr( $cta['target'] ); ?>" href="<?php echo esc_url( $cta['url'] ); ?>">
 							<?php if ( ! empty( $cta['icon'] ) ) : ?>
 								<i class="fa  <?php echo esc_attr( $cta['icon'] ); ?>"></i>
