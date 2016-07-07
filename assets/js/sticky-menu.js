@@ -8,7 +8,6 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 	'use strict';
 
 	var config = {
-		adminBarHeight:       $( 'body' ).hasClass( 'admin-bar' ) ? 32 : 0,
 		bodyStickyClass:      'sticky-navigation',
 		stickyOffsetClass:    'js-sticky-offset',
 	};
@@ -58,7 +57,7 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 		 */
 		addStickyNavbar: function () {
 			$( window ).on( 'scroll.ptStickyMenu', _.bind( _.throttle( function() {
-				$( 'body' ).toggleClass( 'is-sticky-nav', $( window ).scrollTop() > ( this.stickyOffset - config.adminBarHeight ) );
+				$( 'body' ).toggleClass( 'is-sticky-nav', $( window ).scrollTop() > ( this.stickyOffset - this.getAdminBarHeight() ) );
 			}, 20 ), this ) ); // Only trigered once every 20ms = 50 fps = very cool for performance.
 		},
 
@@ -99,7 +98,11 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 		 * Remove the sticky menu (remove the class '.is-sticky-nav' from the body).
 		 */
 		getAdminBarHeight: function () {
+			if ( $( 'body' ).hasClass( 'admin-bar' ) && 'fixed' === $( '#wpadminbar' ).css( 'position' ) ) {
+				return $( '#wpadminbar' ).height();
+			}
 
+			return 0;
 		},
 	} );
 
