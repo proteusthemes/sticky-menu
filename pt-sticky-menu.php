@@ -94,6 +94,7 @@ class PT_Sticky_Menu {
 					<div class="pt-sticky-menu__logo">
 						<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
 							<?php
+
 							// Get logo theme_mod names for the logo.
 							$logo_settings = apply_filters( 'pt-sticky-menu/logo_mod_names', array(
 								'logo'        => 'logo_img',
@@ -117,6 +118,7 @@ class PT_Sticky_Menu {
 					<!-- Main Navigation -->
 					<nav class="pt-sticky-menu__navigation  collapse  navbar-toggleable-md" id="main-navigation" aria-label="<?php esc_html_e( 'Main Menu', 'pt-sticky-menu' ); ?>">
 							<?php
+
 							// Get menu location.
 							$menu_location = apply_filters( 'pt-sticky-menu/theme_menu_location', 'main-menu' );
 
@@ -164,10 +166,11 @@ class PT_Sticky_Menu {
 								</a>
 							</div>
 						<?php
+
 							// End and collect CTA buffer output.
 							$cta_html_output = ob_get_clean();
 
-							// Display the CTA HTML output (can be replaced with a filter).
+							// Display the CTA HTML output (can be replaced via filter).
 							echo wp_kses_post( apply_filters( 'pt-sticky-menu/cta_html_output', $cta_html_output, $cta ) );
 						endif;
 						?>
