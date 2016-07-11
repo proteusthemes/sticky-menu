@@ -130,47 +130,48 @@ class PT_Sticky_Menu {
 								) );
 							}
 							?>
+						<?php
+
+						// Display the Call-to-Action button if the page is selected in customizer.
+						$selected_page = get_theme_mod( 'sticky_menu_featured_page_select', $this->default_settings['fp_select'] );
+
+						if ( 'none' !== $selected_page ) :
+							$cta = array();
+							$cta['target'] = get_theme_mod( 'sticky_menu_featured_page_open_in_new_window', $this->default_settings['fp_new_window'] ) ? '_blank' : '_self';
+							$cta['icon']   = get_theme_mod( 'sticky_menu_featured_page_icon', $this->default_settings['fp_icon'] );
+							$cta['text']   = '';
+							$cta['url']    = '';
+
+							if ( 'custom-url' === $selected_page ) {
+								$cta['text'] = get_theme_mod( 'sticky_menu_featured_page_custom_text', $this->default_settings['fp_custom_text'] );
+								$cta['url']  = get_theme_mod( 'sticky_menu_featured_page_custom_url', $this->default_settings['fp_cutsom_url'] );
+							}
+							else {
+								$cta['text'] = get_the_title( absint( $selected_page ) );
+								$cta['url']  = get_permalink( absint( $selected_page ) );
+							}
+
+							// Start output buffer for displaying the CTA html output.
+							ob_start();
+						?>
+							<!-- Call to Action -->
+							<div class="pt-sticky-menu__call-to-action  hidden-xs-down">
+								<a class="btn  btn-primary" target="<?php echo esc_attr( $cta['target'] ); ?>" href="<?php echo esc_url( $cta['url'] ); ?>">
+									<?php if ( ! empty( $cta['icon'] ) ) : ?>
+										<i class="fa  <?php echo esc_attr( $cta['icon'] ); ?>"></i>
+									<?php endif; ?>
+									<?php echo esc_html( $cta['text'] ); ?>
+								</a>
+							</div>
+						<?php
+							// End and collect CTA buffer output.
+							$cta_html_output = ob_get_clean();
+
+							// Display the CTA HTML output (can be replaced with a filter).
+							echo wp_kses_post( apply_filters( 'pt-sticky-menu/cta_html_output', $cta_html_output, $cta ) );
+						endif;
+						?>
 					</nav>
-					<?php
-					// Display the Call-to-Action button if the page is selected in customizer.
-					$selected_page = get_theme_mod( 'sticky_menu_featured_page_select', $this->default_settings['fp_select'] );
-
-					if ( 'none' !== $selected_page ) :
-						$cta = array();
-						$cta['target'] = get_theme_mod( 'sticky_menu_featured_page_open_in_new_window', $this->default_settings['fp_new_window'] ) ? '_blank' : '_self';
-						$cta['icon']   = get_theme_mod( 'sticky_menu_featured_page_icon', $this->default_settings['fp_icon'] );
-						$cta['text']   = '';
-						$cta['url']    = '';
-
-						if ( 'custom-url' === $selected_page ) {
-							$cta['text'] = get_theme_mod( 'sticky_menu_featured_page_custom_text', $this->default_settings['fp_custom_text'] );
-							$cta['url']  = get_theme_mod( 'sticky_menu_featured_page_custom_url', $this->default_settings['fp_cutsom_url'] );
-						}
-						else {
-							$cta['text'] = get_the_title( absint( $selected_page ) );
-							$cta['url']  = get_permalink( absint( $selected_page ) );
-						}
-
-						// Start output buffer for displaying the CTA html output.
-						ob_start();
-					?>
-						<!-- Call to Action -->
-						<div class="pt-sticky-menu__call-to-action  hidden-xs-down">
-							<a class="btn  btn-primary" target="<?php echo esc_attr( $cta['target'] ); ?>" href="<?php echo esc_url( $cta['url'] ); ?>">
-								<?php if ( ! empty( $cta['icon'] ) ) : ?>
-									<i class="fa  <?php echo esc_attr( $cta['icon'] ); ?>"></i>
-								<?php endif; ?>
-								<?php echo esc_html( $cta['text'] ); ?>
-							</a>
-						</div>
-					<?php
-						// End and collect CTA buffer output.
-						$cta_html_output = ob_get_clean();
-
-						// Display the CTA HTML output (can be replaced with a filter).
-						echo wp_kses_post( apply_filters( 'pt-sticky-menu/cta_html_output', $cta_html_output, $cta ) );
-					endif;
-					?>
 					<!-- Hamburger Menu for tablet -->
 					<div class="pt-sticky-menu__hamburger  hidden-lg-up  hidden-xs-down">
 						<a class="btn  btn-dark" href="#">
