@@ -70,7 +70,16 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 		 */
 		registerClickEventListeners: function () {
 			$( document ).on( 'click.ptStickyMenuBackToTop' , '.js-pt-sticky-menu-back-to-top', function() {
-				$('html, body').animate( { scrollTop : 0 }, 500);
+				$( 'html, body' ).animate( { scrollTop : 0 }, 500 );
+
+				return false;
+			} );
+
+			$( document ).on( 'click.ptStickyMenuBackToTopAndOpenMenu' , '.js-pt-sticky-menu-back-to-top-open-menu', function() {
+				$( 'html, body' ).animate( { scrollTop : 0 }, 500, 'swing', function() {
+					$( '.js-sticky-mobile-option' ).click();
+				} );
+
 				return false;
 			} );
 		},

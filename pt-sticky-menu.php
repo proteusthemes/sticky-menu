@@ -174,7 +174,7 @@ class PT_Sticky_Menu {
 					</nav>
 					<!-- Hamburger Menu for tablet -->
 					<div class="pt-sticky-menu__hamburger  hidden-lg-up  hidden-xs-down">
-						<a class="btn  btn-dark" href="#">
+						<a href="#" class="btn  btn-dark  js-pt-sticky-menu-back-to-top-open-menu">
 							<i class="fa  fa-bars  hamburger"></i> <?php esc_html_e( 'MENU' , 'pt-sticky-menu' ); ?>
 						</a>
 					</div>
