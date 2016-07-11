@@ -87,7 +87,7 @@ class PT_Sticky_Menu {
 		if ( get_theme_mod( 'sticky_menu_select', $this->default_settings['sticky_selected'] ) ) :
 	?>
 
-		<div class="pt-sticky-menu" style="background-color: <?php echo esc_attr( get_theme_mod( 'sticky_menu_bg_color', $this->default_settings['fp_bg_color'] ) ); ?>;">
+		<div class="pt-sticky-menu  js-pt-sticky-menu" style="background-color: <?php echo esc_attr( get_theme_mod( 'sticky_menu_bg_color', $this->default_settings['fp_bg_color'] ) ); ?>;">
 			<div class="container">
 				<!-- Logo and site name -->
 				<div class="pt-sticky-menu__logo">
@@ -197,7 +197,7 @@ class PT_Sticky_Menu {
 	 */
 	public function body_class( $classes ) {
 		if ( get_theme_mod( 'sticky_menu_select', $this->default_settings['sticky_selected'] ) ) {
-			$classes[] = 'sticky-navigation';
+			$classes[] = 'js-sticky-navigation';
 		}
 
 		return $classes;

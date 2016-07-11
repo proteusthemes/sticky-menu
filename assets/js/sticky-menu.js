@@ -8,10 +8,10 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 	'use strict';
 
 	var config = {
-		bodyStickyClass:      'sticky-navigation',
-		stickyOffsetClass:    'js-sticky-offset',
-		stickyActiveClass:    'is-sticky-nav',
-		stickyContainerClass: 'pt-sticky-menu',
+		bodyStickyClass:       'js-sticky-navigation', // Present, when sticky is enabled in customizer.
+		stickyOffsetClass:     'js-sticky-offset', // Class used for triggering is-sticky-nav.
+		stickyActiveBodyClass: 'is-sticky-nav', // Class used to mark that the sticky menu is active.
+		stickyContainerClass:  'js-pt-sticky-menu', // Class of the main sticky menu container.
 	};
 
 	var StickyMenu = function() {
@@ -48,13 +48,13 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 		},
 
 		/**
-		 * Display the sticky menu (register the scroll event and add a class config.stickyActiveClass to the body).
+		 * Display the sticky menu (register the scroll event and add a class config.stickyActiveBodyClass to the body).
 		 */
 		registerScrollEventListner: function () {
 			$( window ).on( 'scroll.ptStickyMenu', _.bind( _.throttle( function() {
 
-				// Toogle the config.stickyActiveClass class, if below the offset.
-				$( 'body' ).toggleClass( config.stickyActiveClass, $( window ).scrollTop() > ( this.stickyOffset - this.getAdminBarHeight() ) );
+				// Toogle the config.stickyActiveBodyClass class, if below the offset.
+				$( 'body' ).toggleClass( config.stickyActiveBodyClass, $( window ).scrollTop() > ( this.stickyOffset - this.getAdminBarHeight() ) );
 
 				// Display the sticky menu only if scrolling up.
 				if ( this.isScrollDirectionUp() ) {
