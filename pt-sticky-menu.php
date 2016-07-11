@@ -116,7 +116,7 @@ class PT_Sticky_Menu {
 						</a>
 					</div>
 					<!-- Main Navigation -->
-					<nav class="pt-sticky-menu__navigation  collapse  navbar-toggleable-md" id="main-navigation" aria-label="<?php esc_html_e( 'Main Menu', 'pt-sticky-menu' ); ?>">
+					<nav class="pt-sticky-menu__navigation" aria-label="<?php esc_html_e( 'Main Menu', 'pt-sticky-menu' ); ?>">
 							<?php
 
 							// Get menu location.
