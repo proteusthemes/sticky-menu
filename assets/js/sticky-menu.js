@@ -22,10 +22,10 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 		// Initialize the sticky menu.
 		this.initializeStickyMenu();
 
-		// Register the event listeners.
+		// Register the resize event listeners.
 		this.registerResizeEventListener();
 
-		// Register on click event listeners.
+		// Register the click event listeners.
 		this.registerClickEventListeners();
 	};
 
@@ -50,7 +50,7 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 		},
 
 		/**
-		 * Display the sticky menu (register the scroll event and add a class config.stickyActiveBodyClass to the body).
+		 * Display the sticky menu (register the scroll event).
 		 */
 		registerScrollEventListner: function () {
 			$( window ).on( 'scroll.ptStickyMenu', _.bind( _.throttle( function() {
@@ -62,20 +62,23 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 				else {
 					$( '.' + config.stickyContainerClass ).slideUp();
 				}
-			}, 250 ), this ) );
+			}, 20 ), this ) ); // 1000/20 = 50fps. Good performance.
 		},
 
 		/**
 		 * Register click event listeners.
 		 */
 		registerClickEventListeners: function () {
-			$( document ).on( 'click.ptStickyMenuBackToTop' , '.js-pt-sticky-menu-back-to-top', function() {
+
+			// Back to top animation for mobile "back-to-top" button.
+			$( document ).on( 'click' , '.js-pt-sticky-menu-back-to-top', function() {
 				$( 'html, body' ).animate( { scrollTop : 0 }, 500 );
 
 				return false;
 			} );
 
-			$( document ).on( 'click.ptStickyMenuBackToTopAndOpenMenu' , '.js-pt-sticky-menu-back-to-top-open-menu', function() {
+			// Back to top animation and open menu for tablets "menu" button.
+			$( document ).on( 'click' , '.js-pt-sticky-menu-back-to-top-open-menu', function() {
 				$( 'html, body' ).animate( { scrollTop : 0 }, 500, 'swing', function() {
 					$( '.js-sticky-mobile-option' ).click();
 				} );
