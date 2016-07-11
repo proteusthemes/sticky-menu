@@ -179,7 +179,7 @@ class PT_Sticky_Menu {
 					</div>
 					<!-- Back to top button for Main Navigation on mobile -->
 					<div class="pt-sticky-menu__back-to-top hidden-sm-up">
-						<a href="#" class="btn  btn-dark">
+						<a href="#" class="btn  btn-dark  js-pt-sticky-menu-back-to-top">
 							<i class="fa fa-chevron-up"></i>
 						</a>
 					</div>

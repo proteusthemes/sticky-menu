@@ -22,8 +22,11 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 		// Initialize the sticky menu.
 		this.initializeStickyMenu();
 
-		// Register the Event listeners.
+		// Register the event listeners.
 		this.registerResizeEventListener();
+
+		// Register on click event listeners.
+		this.registerClickEventListeners();
 	};
 
 	_.extend( StickyMenu.prototype, {
@@ -60,6 +63,16 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 					$( '.' + config.stickyContainerClass ).slideUp();
 				}
 			}, 250 ), this ) );
+		},
+
+		/**
+		 * Register click event listeners.
+		 */
+		registerClickEventListeners: function () {
+			$( document ).on( 'click.ptStickyMenuBackToTop' , '.js-pt-sticky-menu-back-to-top', function() {
+				$('html, body').animate( { scrollTop : 0 }, 500);
+				return false;
+			} );
 		},
 
 		/**
