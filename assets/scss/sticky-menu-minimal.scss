@@ -1,9 +1,10 @@
 .pt-sticky-menu {
-	display: none;
-}
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 
-.is-sticky-nav {
-	.pt-sticky-menu {
+	&__container {
+		display: none;
 		position: fixed;
 		width: 100%;
 		top: 0;
@@ -12,20 +13,7 @@
 		background-color: #ffffff;
 		box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
 
-		.container {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-		}
-
-		&__navigation {
-			align-self: flex-end;
-		}
-	}
-
-	// Wordpress admin top offsets (strange breakpoints).
-	&.admin-bar {
-		.pt-sticky-menu {
+		.admin-bar & {
 			top: 0;
 
 			@media (min-width: 600px) {
@@ -36,5 +24,9 @@
 				top: ptr(32);
 			}
 		}
+	}
+
+	&__navigation {
+		align-self: flex-end;
 	}
 }

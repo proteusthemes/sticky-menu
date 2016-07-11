@@ -87,100 +87,102 @@ class PT_Sticky_Menu {
 		if ( get_theme_mod( 'sticky_menu_select', $this->default_settings['sticky_selected'] ) ) :
 	?>
 
-		<div class="pt-sticky-menu  js-pt-sticky-menu" style="background-color: <?php echo esc_attr( get_theme_mod( 'sticky_menu_bg_color', $this->default_settings['fp_bg_color'] ) ); ?>;">
+		<div class="pt-sticky-menu__container  js-pt-sticky-menu" style="background-color: <?php echo esc_attr( get_theme_mod( 'sticky_menu_bg_color', $this->default_settings['fp_bg_color'] ) ); ?>;">
 			<div class="container">
-				<!-- Logo and site name -->
-				<div class="pt-sticky-menu__logo">
-					<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
-						<?php
-						// Get logo theme_mod names for the logo.
-						$logo_settings = apply_filters( 'pt-sticky-menu/logo_mod_names', array(
-							'logo'        => 'logo_img',
-							'retina_logo' => 'logo2x_img',
-						) );
-						$logo   = get_theme_mod( $logo_settings['logo'], false );
-						$logo2x = get_theme_mod( $logo_settings['retina_logo'], false );
-
-						if ( ! empty( $logo ) ) :
-						?>
-							<img src="<?php echo esc_url( $logo ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" srcset="<?php echo esc_attr( $logo ); ?><?php echo empty( $logo2x ) ? '' : ', ' . esc_url( $logo2x ) . ' 2x'; ?>" class="img-fluid" <?php echo $this->get_logo_dimensions(); ?> />
-						<?php
-						else :
-						?>
-							<h1><?php bloginfo( 'name' ); ?></h1>
-						<?php
-						endif;
-						?>
-					</a>
-				</div>
-				<!-- Main Navigation -->
-				<nav class="pt-sticky-menu__navigation  collapse  navbar-toggleable-md" id="main-navigation" aria-label="<?php esc_html_e( 'Main Menu', 'pt-sticky-menu' ); ?>">
-						<?php
-						// Get menu location.
-						$menu_location = apply_filters( 'pt-sticky-menu/theme_menu_location', 'main-menu' );
-
-						if ( has_nav_menu( $menu_location ) ) {
-							wp_nav_menu( array(
-								'theme_location' => $menu_location,
-								'container'      => false,
-								'menu_class'     => 'main-navigation',
-								'walker'         => new Aria_Walker_Nav_Menu(),
-								'items_wrap'     => '<ul id="%1$s" class="%2$s" role="menubar">%3$s</ul>',
+				<div class="pt-sticky-menu">
+					<!-- Logo and site name -->
+					<div class="pt-sticky-menu__logo">
+						<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
+							<?php
+							// Get logo theme_mod names for the logo.
+							$logo_settings = apply_filters( 'pt-sticky-menu/logo_mod_names', array(
+								'logo'        => 'logo_img',
+								'retina_logo' => 'logo2x_img',
 							) );
-						}
-						?>
-				</nav>
-				<?php
-				// Display the Call-to-Action button if the page is selected in customizer.
-				$selected_page = get_theme_mod( 'sticky_menu_featured_page_select', $this->default_settings['fp_select'] );
+							$logo   = get_theme_mod( $logo_settings['logo'], false );
+							$logo2x = get_theme_mod( $logo_settings['retina_logo'], false );
 
-				if ( 'none' !== $selected_page ) :
-					$cta = array();
-					$cta['target'] = get_theme_mod( 'sticky_menu_featured_page_open_in_new_window', $this->default_settings['fp_new_window'] ) ? '_blank' : '_self';
-					$cta['icon']   = get_theme_mod( 'sticky_menu_featured_page_icon', $this->default_settings['fp_icon'] );
-					$cta['text']   = '';
-					$cta['url']    = '';
-
-					if ( 'custom-url' === $selected_page ) {
-						$cta['text'] = get_theme_mod( 'sticky_menu_featured_page_custom_text', $this->default_settings['fp_custom_text'] );
-						$cta['url']  = get_theme_mod( 'sticky_menu_featured_page_custom_url', $this->default_settings['fp_cutsom_url'] );
-					}
-					else {
-						$cta['text'] = get_the_title( absint( $selected_page ) );
-						$cta['url']  = get_permalink( absint( $selected_page ) );
-					}
-
-					// Start output buffer for displaying the CTA html output.
-					ob_start();
-				?>
-					<!-- Call to Action -->
-					<div class="pt-sticky-menu__call-to-action  hidden-xs-down">
-						<a class="btn  btn-primary" target="<?php echo esc_attr( $cta['target'] ); ?>" href="<?php echo esc_url( $cta['url'] ); ?>">
-							<?php if ( ! empty( $cta['icon'] ) ) : ?>
-								<i class="fa  <?php echo esc_attr( $cta['icon'] ); ?>"></i>
-							<?php endif; ?>
-							<?php echo esc_html( $cta['text'] ); ?>
+							if ( ! empty( $logo ) ) :
+							?>
+								<img src="<?php echo esc_url( $logo ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" srcset="<?php echo esc_attr( $logo ); ?><?php echo empty( $logo2x ) ? '' : ', ' . esc_url( $logo2x ) . ' 2x'; ?>" class="img-fluid" <?php echo $this->get_logo_dimensions(); ?> />
+							<?php
+							else :
+							?>
+								<h1><?php bloginfo( 'name' ); ?></h1>
+							<?php
+							endif;
+							?>
 						</a>
 					</div>
-				<?php
-					// End and collect CTA buffer output.
-					$cta_html_output = ob_get_clean();
+					<!-- Main Navigation -->
+					<nav class="pt-sticky-menu__navigation  collapse  navbar-toggleable-md" id="main-navigation" aria-label="<?php esc_html_e( 'Main Menu', 'pt-sticky-menu' ); ?>">
+							<?php
+							// Get menu location.
+							$menu_location = apply_filters( 'pt-sticky-menu/theme_menu_location', 'main-menu' );
 
-					// Display the CTA HTML output (can be replaced with a filter).
-					echo wp_kses_post( apply_filters( 'pt-sticky-menu/cta_html_output', $cta_html_output, $cta ) );
-				endif;
-				?>
-				<!-- Hamburger Menu for tablet -->
-				<div class="pt-sticky-menu__hamburger  hidden-lg-up  hidden-xs-down">
-					<a class="btn  btn-dark" href="#">
-						<i class="fa  fa-bars  hamburger"></i> <?php esc_html_e( 'MENU' , 'pt-sticky-menu' ); ?>
-					</a>
-				</div>
-				<!-- Back to top button for Main Navigation on mobile -->
-				<div class="pt-sticky-menu__back-to-top hidden-sm-up">
-					<a href="#" class="btn  btn-dark">
-						<i class="fa fa-chevron-up"></i>
-					</a>
+							if ( has_nav_menu( $menu_location ) ) {
+								wp_nav_menu( array(
+									'theme_location' => $menu_location,
+									'container'      => false,
+									'menu_class'     => 'main-navigation',
+									'walker'         => new Aria_Walker_Nav_Menu(),
+									'items_wrap'     => '<ul id="%1$s" class="%2$s" role="menubar">%3$s</ul>',
+								) );
+							}
+							?>
+					</nav>
+					<?php
+					// Display the Call-to-Action button if the page is selected in customizer.
+					$selected_page = get_theme_mod( 'sticky_menu_featured_page_select', $this->default_settings['fp_select'] );
+
+					if ( 'none' !== $selected_page ) :
+						$cta = array();
+						$cta['target'] = get_theme_mod( 'sticky_menu_featured_page_open_in_new_window', $this->default_settings['fp_new_window'] ) ? '_blank' : '_self';
+						$cta['icon']   = get_theme_mod( 'sticky_menu_featured_page_icon', $this->default_settings['fp_icon'] );
+						$cta['text']   = '';
+						$cta['url']    = '';
+
+						if ( 'custom-url' === $selected_page ) {
+							$cta['text'] = get_theme_mod( 'sticky_menu_featured_page_custom_text', $this->default_settings['fp_custom_text'] );
+							$cta['url']  = get_theme_mod( 'sticky_menu_featured_page_custom_url', $this->default_settings['fp_cutsom_url'] );
+						}
+						else {
+							$cta['text'] = get_the_title( absint( $selected_page ) );
+							$cta['url']  = get_permalink( absint( $selected_page ) );
+						}
+
+						// Start output buffer for displaying the CTA html output.
+						ob_start();
+					?>
+						<!-- Call to Action -->
+						<div class="pt-sticky-menu__call-to-action  hidden-xs-down">
+							<a class="btn  btn-primary" target="<?php echo esc_attr( $cta['target'] ); ?>" href="<?php echo esc_url( $cta['url'] ); ?>">
+								<?php if ( ! empty( $cta['icon'] ) ) : ?>
+									<i class="fa  <?php echo esc_attr( $cta['icon'] ); ?>"></i>
+								<?php endif; ?>
+								<?php echo esc_html( $cta['text'] ); ?>
+							</a>
+						</div>
+					<?php
+						// End and collect CTA buffer output.
+						$cta_html_output = ob_get_clean();
+
+						// Display the CTA HTML output (can be replaced with a filter).
+						echo wp_kses_post( apply_filters( 'pt-sticky-menu/cta_html_output', $cta_html_output, $cta ) );
+					endif;
+					?>
+					<!-- Hamburger Menu for tablet -->
+					<div class="pt-sticky-menu__hamburger  hidden-lg-up  hidden-xs-down">
+						<a class="btn  btn-dark" href="#">
+							<i class="fa  fa-bars  hamburger"></i> <?php esc_html_e( 'MENU' , 'pt-sticky-menu' ); ?>
+						</a>
+					</div>
+					<!-- Back to top button for Main Navigation on mobile -->
+					<div class="pt-sticky-menu__back-to-top hidden-sm-up">
+						<a href="#" class="btn  btn-dark">
+							<i class="fa fa-chevron-up"></i>
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>
