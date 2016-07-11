@@ -2,6 +2,16 @@
 
 This is a composer package for the PT Sticky Menu, also available on the packagist repository: https://packagist.org/packages/proteusthemes/pt-sticky-menu.
 
+## How it works ##
+
+In customizer under *Theme Options -> Sticky menu* you will find the settings for the sticky menu:
+
+- enable/disable sticky menu checkbox,
+- featured page button settings,
+- sticky menu container background color.
+
+The sticky menu will be displayed only when the user scrolls up, otherwise it will remain hidden.
+
 ## Instructions ##
 
 1. require this package in your composer.json file: "proteusthemes/pt-sticky-menu"
