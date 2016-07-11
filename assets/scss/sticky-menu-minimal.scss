@@ -26,11 +26,19 @@
 		}
 	}
 
+	&__logo {
+		margin: ptr(10) 0;
+	}
+
 	&__navigation {
 		align-self: flex-end;
 
 		.main-navigation {
-			display: inline-block;
+			display: none;
+
+			@media (min-width: 992px) {
+				display: inline-block;
+			}
 		}
 	}
 
