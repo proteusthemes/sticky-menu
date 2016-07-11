@@ -10,28 +10,62 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 	var config = {
 		bodyStickyClass:      'sticky-navigation',
 		stickyOffsetClass:    'js-sticky-offset',
+		stickyActiveClass:    'is-sticky-nav',
+		stickyContainerClass: 'pt-sticky-menu',
 	};
 
 	var StickyMenu = function() {
 
-		// Set the initial windowTop position.
-		this.windowTop = $( window ).scrollTop();
+		// Initialize variables.
+		this.windowTop    = 0;
+		this.stickyOffset = 0;
 
-		// Set the initial config.stickyOffsetClass class to the appropriate DOM element.
-		this.setStickyOffsetClass();
-
-		// Get the initial offset.
-		this.stickyOffset = this.getStickyMenuOffset();
+		// Initialize the sticky menu.
+		this.initializeStickyMenu();
 
 		// Register the Event listeners.
-		this.registerUpdateEventListener();
 		this.registerResizeEventListener();
-
-		// Trigger for the initialization.
-		$( window ).trigger( 'resize.ptStickyMenu' );
 	};
 
 	_.extend( StickyMenu.prototype, {
+
+		/**
+		 * Initialize Sticky menu, if the body has the config.bodyStickyClass class.
+		 */
+		initializeStickyMenu: function () {
+			if ( $( 'body' ).hasClass( config.bodyStickyClass ) ) {
+
+				// Set the initial windowTop position.
+				this.windowTop = $( window ).scrollTop();
+
+				// Get the initial offset.
+				this.stickyOffset = this.getStickyMenuOffset();
+
+				// Register sticky menu scroll event.
+				this.registerScrollEventListner();
+				$( window ).trigger( 'scroll.ptStickyMenu' );
+			}
+		},
+
+		/**
+		 * Display the sticky menu (register the scroll event and add a class config.stickyActiveClass to the body).
+		 */
+		registerScrollEventListner: function () {
+			$( window ).on( 'scroll.ptStickyMenu', _.bind( _.throttle( function() {
+
+				// Toogle the config.stickyActiveClass class, if below the offset.
+				$( 'body' ).toggleClass( config.stickyActiveClass, $( window ).scrollTop() > ( this.stickyOffset - this.getAdminBarHeight() ) );
+
+				// Display the sticky menu only if scrolling up.
+				if ( this.isScrollDirectionUp() ) {
+					$( '.' + config.stickyContainerClass ).slideDown();
+				}
+				else {
+					$( '.' + config.stickyContainerClass ).slideUp();
+				}
+			}, 250 ), this ) );
+		},
+
 		/**
 		 * Set the config.stickyOffsetClass class to the appropriate DOM element.
 		 */
@@ -41,53 +75,13 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 		},
 
 		/**
-		 * Register the sticky menu update event listener. Everything goes though here.
-		 */
-		registerUpdateEventListener: function () {
-			$( 'body' ).on( 'update.ptStickyMenu', _.bind( function () {
-				if ( $( 'body' ).hasClass( config.bodyStickyClass ) ) {
-					this.addStickyNavbar();
-					$( window).trigger( 'scroll.ptStickyMenu' );
-				}
-				else {
-					this.removeStickyNavbar();
-				}
-			}, this ) );
-		},
-
-		/**
-		 * Display the sticky menu (add a class '.is-sticky-nav' to the body).
-		 */
-		addStickyNavbar: function () {
-			$( window ).on( 'scroll.ptStickyMenu', _.bind( _.throttle( function() {
-				if ( 0 > this.getScrollDirection() ) {
-					$( 'body' ).toggleClass( 'is-sticky-nav', $( window ).scrollTop() > ( this.stickyOffset - this.getAdminBarHeight() ) );
-				}
-				else {
-					this.hideStickyNavbar();
-				}
-			}, 250 ), this ) ); // Only trigered once every 20ms = 50 fps = very cool for performance.
-		},
-
-		/**
-		 * Remove the sticky menu (remove the class '.is-sticky-nav' from the body and remove the scroll event).
-		 */
-		removeStickyNavbar: function () {
-			$( window ).off( 'scroll.ptStickyMenu' );
-			this.hideStickyNavbar();
-		},
-
-		/**
-		 * Hide the sticky menu (remove the class '.is-sticky-nav' from the body).
-		 */
-		hideStickyNavbar: function () {
-			$( 'body' ).removeClass( 'is-sticky-nav' );
-		},
-
-		/**
 		 * Get the sticky menu offset.
 		 */
 		getStickyMenuOffset: function () {
+
+			// First set the sticky offset class to the appropriate DOM element.
+			this.setStickyOffsetClass();
+
 			if ( 0 < $( '.' + config.stickyOffsetClass ).length ) {
 				return $( '.' + config.stickyOffsetClass ).offset().top;
 			}
@@ -100,12 +94,7 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 		 */
 		registerResizeEventListener: function () {
 			$( window ).on( 'resize.ptStickyMenu', _.bind( _.debounce( function() {
-				// Update sticky offset.
-				this.setStickyOffsetClass();
 				this.stickyOffset = this.getStickyMenuOffset();
-
-				// Turn on or off the sticky behaviour, depending if the <body> has class config.bodyStickyClass.
-				$( 'body' ).trigger( 'update.ptStickyMenu' );
 			}, 100 ), this ) );
 		},
 
@@ -128,7 +117,19 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 					value            = currentWindowTop - this.windowTop;
 
 			this.windowTop = currentWindowTop;
+
 			return value;
+		},
+
+		/**
+		 * Is the direction of the scroll = up?
+		 */
+		isScrollDirectionUp: function () {
+			if ( 0 > this.getScrollDirection() ) {
+				return true;
+			}
+
+			return false;
 		},
 	} );
 
