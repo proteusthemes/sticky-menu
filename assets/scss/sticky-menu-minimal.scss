@@ -28,5 +28,14 @@
 
 	&__navigation {
 		align-self: flex-end;
+
+		.main-navigation {
+			display: inline-block;
+		}
+	}
+
+	&__call-to-action {
+		display: inline;
+		margin-left: ptr(10);
 	}
 }
