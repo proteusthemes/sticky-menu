@@ -9,8 +9,7 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 
 	var config = {
 		bodyStickyClass:       'js-sticky-navigation', // Present, when sticky is enabled in customizer.
-		stickyOffsetClass:     'js-sticky-offset', // Class used for triggering is-sticky-nav.
-		stickyActiveBodyClass: 'is-sticky-nav', // Class used to mark that the sticky menu is active.
+		stickyOffsetClass:     'js-sticky-offset', // Class used for triggering the sticky menu.
 		stickyContainerClass:  'js-pt-sticky-menu', // Class of the main sticky menu container.
 	};
 
@@ -53,11 +52,8 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 		registerScrollEventListner: function () {
 			$( window ).on( 'scroll.ptStickyMenu', _.bind( _.throttle( function() {
 
-				// Toogle the config.stickyActiveBodyClass class, if below the offset.
-				$( 'body' ).toggleClass( config.stickyActiveBodyClass, $( window ).scrollTop() > ( this.stickyOffset - this.getAdminBarHeight() ) );
-
-				// Display the sticky menu only if scrolling up.
-				if ( this.isScrollDirectionUp() ) {
+				// Display the sticky menu only if scrolling up and if the window top is bellow the offset marker.
+				if ( this.isScrollDirectionUp() && this.isWindowTopBellowOffset() ) {
 					$( '.' + config.stickyContainerClass ).slideDown();
 				}
 				else {
@@ -130,6 +126,13 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 			}
 
 			return false;
+		},
+
+		/**
+		 * Is the top of the window bellow the offset marker?
+		 */
+		isWindowTopBellowOffset: function () {
+			return $( window ).scrollTop() > ( this.stickyOffset - this.getAdminBarHeight() );
 		},
 	} );
 
