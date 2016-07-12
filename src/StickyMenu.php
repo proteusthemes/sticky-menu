@@ -1,4 +1,6 @@
 <?php
+namespace ProteusThemes\StickyMenu;
+
 /**
  * Sticky menu for all newer PT themes.
  *
@@ -8,7 +10,7 @@
 /**
  * Sticky menu class. *Singleton*
  */
-class PT_Sticky_Menu {
+class StickyMenu {
 
 	/**
 	 * The reference to *Singleton* instance of this class
@@ -73,7 +75,7 @@ class PT_Sticky_Menu {
 	 * @param WP_Customize_Manager $wp_customize The customizer manager.
 	 */
 	public function register_customizer( $wp_customize ) {
-		new PT_Sticky_Menu_Customizer( $wp_customize );
+		new Customizer( $wp_customize );
 	}
 
 
@@ -127,7 +129,7 @@ class PT_Sticky_Menu {
 									'theme_location' => $menu_location,
 									'container'      => false,
 									'menu_class'     => 'main-navigation',
-									'walker'         => new Aria_Walker_Nav_Menu(),
+									'walker'         => new \Aria_Walker_Nav_Menu(),
 									'items_wrap'     => '<ul id="%1$s" class="%2$s" role="menubar">%3$s</ul>',
 								) );
 							}
