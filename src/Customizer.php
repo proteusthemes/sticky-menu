@@ -3,8 +3,6 @@ namespace ProteusThemes\StickyMenu;
 
 /**
  * Customizer settings and controls for the PT sticky menu.
- *
- * @package pt-sticky-menu
  */
 
 /**

@@ -3,8 +3,6 @@ namespace ProteusThemes\StickyMenu;
 
 /**
  * Sticky menu for all newer PT themes.
- *
- * @package pt-sticky-menu
  */
 
 /**
