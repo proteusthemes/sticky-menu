@@ -56,12 +56,7 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 			$( window ).on( 'scroll.ptStickyMenu', _.bind( _.throttle( function() {
 
 				// Display the sticky menu only if scrolling up and if the window top is bellow the offset marker.
-				if ( this.isScrollDirectionUp() && this.isWindowTopBellowOffset() ) {
-					$( '.' + config.stickyContainerClass ).slideDown();
-				}
-				else {
-					$( '.' + config.stickyContainerClass ).slideUp();
-				}
+				$( '.' + config.stickyContainerClass ).toggleClass( 'is-shown', this.isScrollDirectionUp() && this.isWindowTopBellowOffset() );
 			}, 20 ), this ) ); // 1000/20 = 50fps. Good performance.
 		},
 
