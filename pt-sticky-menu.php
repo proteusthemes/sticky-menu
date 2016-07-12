@@ -175,16 +175,10 @@ class PT_Sticky_Menu {
 						endif;
 						?>
 					</nav>
-					<!-- Hamburger Menu for tablet -->
-					<div class="pt-sticky-menu__hamburger  hidden-lg-up  hidden-xs-down">
+					<!-- Hamburger Menu for mobile/tablet -->
+					<div class="pt-sticky-menu__hamburger  hidden-lg-up">
 						<a href="#" class="btn  btn-dark  js-pt-sticky-menu-back-to-top-open-menu">
-							<i class="fa  fa-bars  hamburger"></i> <?php esc_html_e( 'MENU' , 'pt-sticky-menu' ); ?>
-						</a>
-					</div>
-					<!-- Back to top button for Main Navigation on mobile -->
-					<div class="pt-sticky-menu__back-to-top hidden-sm-up">
-						<a href="#" class="btn  btn-dark  js-pt-sticky-menu-back-to-top">
-							<i class="fa fa-bars"></i>
+							<i class="fa  fa-bars  hamburger"></i> <span class="pt-sticky-menu__hamburger-text"><?php esc_html_e( 'MENU' , 'pt-sticky-menu' ); ?></span>
 						</a>
 					</div>
 				</div>
