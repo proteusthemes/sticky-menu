@@ -1,5 +1,5 @@
 {
-  "name": "proteusthemes/pt-sticky-menu",
+  "name": "proteusthemes/sticky-menu",
   "description": "Sticky menu PHP composer package for all newer PT themes.",
   "keywords": ["wp", "wordpress", "customizer", "proteusthemes", "theme", "sticky", "menu"],
   "license": "GPL-2.0+",
