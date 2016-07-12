@@ -70,14 +70,7 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 		 */
 		registerClickEventListeners: function () {
 
-			// Back to top animation for mobile "back-to-top" button.
-			$( document ).on( 'click' , '.js-pt-sticky-menu-back-to-top', function() {
-				$( 'html, body' ).animate( { scrollTop : 0 }, 500 );
-
-				return false;
-			} );
-
-			// Back to top animation and open menu for tablets "menu" button.
+			// Back to top animation and open the mobile menu.
 			$( document ).on( 'click' , '.js-pt-sticky-menu-back-to-top-open-menu', function() {
 				$( 'html, body' ).animate( { scrollTop : 0 }, 500, 'swing', function() {
 					$( '.js-sticky-mobile-option' ).click();
