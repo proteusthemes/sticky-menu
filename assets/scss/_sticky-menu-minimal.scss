@@ -4,14 +4,19 @@
 	justify-content: space-between;
 
 	&__container {
-		display: none;
 		position: fixed;
 		width: 100%;
 		top: 0;
 		left: 0;
 		z-index: 100;
+		transform: translateY(-100%);
+		transition: transform 200ms linear;
 		background-color: #ffffff;
 		box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
+
+		&.is-shown {
+			transform: translateY(0);
+		}
 
 		.admin-bar & {
 			top: 0;

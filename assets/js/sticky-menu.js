@@ -11,6 +11,8 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 		bodyStickyClass:       'js-sticky-navigation', // Present, when sticky is enabled in customizer.
 		stickyOffsetClass:     'js-sticky-offset', // Class used for triggering the sticky menu.
 		stickyContainerClass:  'js-pt-sticky-menu', // Class of the main sticky menu container.
+		stickyMenuActiveClass: 'is-shown', // Class of the main sticky menu container, when sticky is active.
+		scrollDownIgnore:      5, // Number of pixels to ignore when scrolling down (so the menu does not hide).
 	};
 
 	var StickyMenu = function() {
@@ -56,7 +58,7 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 			$( window ).on( 'scroll.ptStickyMenu', _.bind( _.throttle( function() {
 
 				// Display the sticky menu only if scrolling up and if the window top is bellow the offset marker.
-				$( '.' + config.stickyContainerClass ).toggleClass( 'is-shown', this.isScrollDirectionUp() && this.isWindowTopBellowOffset() );
+				$( '.' + config.stickyContainerClass ).toggleClass( config.stickyMenuActiveClass, this.isScrollDirectionUp() && this.isWindowTopBellowOffset() );
 			}, 20 ), this ) ); // 1000/20 = 50fps. Good performance.
 		},
 
@@ -134,7 +136,10 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 		 * Is the direction of the scroll = up?
 		 */
 		isScrollDirectionUp: function () {
-			if ( 0 > this.getScrollDirection() ) {
+			var scrollDirection = this.getScrollDirection();
+
+			// Return true, if the scroll direction is up OR if the direction is down and very slow (less then 10px per 50ms).
+			if ( scrollDirection < 0 || ( scrollDirection < config.scrollDownIgnore && scrollDirection > 0 && $( '.' + config.stickyContainerClass ).hasClass( config.stickyMenuActiveClass ) ) ) {
 				return true;
 			}
 
