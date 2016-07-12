@@ -9,11 +9,17 @@
       "email": "gregor.capuder@proteusnet.com"
     },
     {
+      "name":  "Marko Prelec",
+      "email": "marko.prelec@proteusnet.com"
+    },
+    {
       "name":  "Primoz Cigler",
       "email": "primoz@proteusnet.com"
     }
   ],
   "autoload": {
-    "classmap": [ "pt-sticky-menu.php", "inc/" ]
+    "psr-4": {
+      "ProteusThemes\\StickyMenu\\": "src/"
+    }
   }
 }

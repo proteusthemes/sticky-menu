@@ -1,4 +1,6 @@
 <?php
+namespace ProteusThemes\StickyMenu;
+
 /**
  * Customizer settings and controls for the PT sticky menu.
  *
@@ -8,7 +10,7 @@
 /**
  * Contains settings, controls, methods for the PT sticky menu customizer.
  */
-class PT_Sticky_Menu_Customizer {
+class Customizer {
 
 	/**
 	 * The singleton manager instance
@@ -23,7 +25,7 @@ class PT_Sticky_Menu_Customizer {
 	 *
 	 * @param WP_Customize_Manager $wp_manager The customizer manager.
 	 */
-	public function __construct( WP_Customize_Manager $wp_manager ) {
+	public function __construct( \WP_Customize_Manager $wp_manager ) {
 
 		// Set the private property to instance of wp_manager.
 		$this->wp_customize = $wp_manager;
@@ -133,7 +135,7 @@ class PT_Sticky_Menu_Customizer {
 			'active_callback' => array( $this, 'is_featured_page_selected' ),
 		) );
 
-		$this->wp_customize->add_control( new WP_Customize_Color_Control(
+		$this->wp_customize->add_control( new \WP_Customize_Color_Control(
 			$this->wp_customize,
 			'sticky_menu_bg_color',
 			array(
