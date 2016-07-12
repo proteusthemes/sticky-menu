@@ -21,5 +21,8 @@
     "psr-4": {
       "ProteusThemes\\StickyMenu\\": "src/"
     }
+  },
+  "require": {
+    "proteusthemes/wp-customizer-utilities": "^2.3"
   }
 }
