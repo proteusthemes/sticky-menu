@@ -135,7 +135,7 @@ class Customizer {
 			'active_callback' => array( $this, 'is_featured_page_selected' ),
 		) );
 
-		$this->wp_customize->add_control( new WP_Customize_Color_Control(
+		$this->wp_customize->add_control( new \WP_Customize_Color_Control(
 			$this->wp_customize,
 			'sticky_menu_bg_color',
 			array(
