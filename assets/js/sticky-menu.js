@@ -11,7 +11,7 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 		bodyStickyClass:       'js-sticky-navigation', // Present, when sticky is enabled in customizer.
 		stickyOffsetClass:     'js-sticky-offset', // Class used for triggering the sticky menu.
 		stickyContainerClass:  'js-pt-sticky-menu', // Class of the main sticky menu container.
-		stickyMenuActiveClass: 'is-shown', // Class of the main sticky menu container, when sticky is active.
+		stickyMenuActiveClass: 'is-shown', // Class next to the main sticky menu container, when sticky is active.
 		scrollDownIgnore:      7, // Number of pixels to ignore when scrolling down (so the menu does not hide).
 	};
 
@@ -37,18 +37,16 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 		 * Initialize Sticky menu, if the body has the config.bodyStickyClass class.
 		 */
 		initializeStickyMenu: function () {
-			if ( $( 'body' ).hasClass( config.bodyStickyClass ) ) {
 
-				// Set the initial windowTop position.
-				this.windowTop = $( window ).scrollTop();
+			// Set the initial windowTop position.
+			this.windowTop = $( window ).scrollTop();
 
-				// Get the initial offset.
-				this.stickyOffset = this.getStickyMenuOffset();
+			// Get the initial offset.
+			this.stickyOffset = this.getStickyMenuOffset();
 
-				// Register sticky menu scroll event.
-				this.registerScrollEventListner();
-				$( window ).trigger( 'scroll.ptStickyMenu' );
-			}
+			// Register sticky menu scroll event.
+			this.registerScrollEventListner();
+			$( window ).trigger( 'scroll.ptStickyMenu' );
 		},
 
 		/**
@@ -154,6 +152,8 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 		},
 	} );
 
-	new StickyMenu();
-
+	// Check, if sticky menu is enabled in customizer.
+	if ( $( 'body' ).hasClass( config.bodyStickyClass ) ) {
+		new StickyMenu();
+	}
 } );
