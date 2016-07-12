@@ -1,6 +1,8 @@
 <?php
 namespace ProteusThemes\StickyMenu;
 
+use ProteusThemes\CustomizerUtils\Helpers;
+
 /**
  * Customizer settings and controls for the PT sticky menu.
  */
@@ -99,7 +101,7 @@ class Customizer {
 			'label'           => esc_html__( 'Featured page', 'pt-sticky-menu' ),
 			'description'     => esc_html__( 'To which page should the Call-to-action button link to?', 'pt-sticky-menu' ),
 			'section'         => 'sticky_menu_section',
-			'choices'         => $this->get_all_pages_id_title(),
+			'choices'         => Helpers::get_all_pages_id_title(),
 			'active_callback' => array( $this, 'is_sticky_menu_selected' ),
 		) );
 
@@ -143,35 +145,6 @@ class Customizer {
 				'active_callback' => array( $this, 'is_sticky_menu_selected' ),
 			)
 		) );
-	}
-
-	/**
-	 * Returns all published pages (IDs and titles).
-	 *
-	 * Used by the sticky_menu_featured_page_select control.
-	 *
-	 * @return map with key: ID and value: title
-	 */
-	public function get_all_pages_id_title() {
-		$args = array(
-			'sort_order'  => 'ASC',
-			'sort_column' => 'post_title',
-			'post_type'   => 'page',
-			'post_status' => 'publish',
-		);
-		$pages = get_pages( $args );
-
-		// Create the pages map with the default value of none and the custom url option.
-		$featured_page_choices               = array();
-		$featured_page_choices['none']       = esc_html__( 'None', 'pt-sticky-menu' );
-		$featured_page_choices['custom-url'] = esc_html__( 'Custom URL', 'pt-sticky-menu' );
-
-		// Parse through the objects returned and add the key value pairs to the featured_page_choices map.
-		foreach ( $pages as $page ) {
-			$featured_page_choices[ $page->ID ] = $page->post_title;
-		}
-
-		return $featured_page_choices;
 	}
 
 	/**
