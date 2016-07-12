@@ -31,11 +31,7 @@
 	}
 
 	&__navigation {
-		align-self: center;
-
-		@media (min-width: 992px) {
-			align-self: flex-end;
-		}
+		align-self: flex-end;
 
 		.main-navigation {
 			display: none;

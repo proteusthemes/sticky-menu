@@ -50,7 +50,7 @@ class PT_Sticky_Menu_Customizer {
 			'fp_custom_text'  => 'Featured Page',
 			'fp_cutsom_url'   => '#',
 			'fp_new_window'   => false,
-			'fp_icon'         => 'fa-home',
+			'fp_icon'         => 'fa-phone',
 			'fp_bg_color'     => '#ffffff',
 		) );
 
@@ -128,7 +128,7 @@ class PT_Sticky_Menu_Customizer {
 		$this->wp_customize->add_control( 'sticky_menu_featured_page_icon', array(
 			'priority'        => 60,
 			'label'           => esc_html__( 'Font Awesome icon', 'pt-sticky-menu' ),
-			'description'     => sprintf( esc_html__( 'Insert a %s icon. Example: fa-home.', 'pt-sticky-menu' ), '<a href="http://fontawesome.io/icons/" target="_blank">Font Awesome</a>' ),
+			'description'     => sprintf( esc_html__( 'Insert a %s icon. Example: fa-phone.', 'pt-sticky-menu' ), '<a href="http://fontawesome.io/icons/" target="_blank">Font Awesome</a>' ),
 			'section'         => 'sticky_menu_section',
 			'active_callback' => array( $this, 'is_featured_page_selected' ),
 		) );

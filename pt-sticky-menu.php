@@ -36,7 +36,7 @@ class PT_Sticky_Menu {
 			'fp_custom_text'  => 'Featured Page',
 			'fp_cutsom_url'   => '#',
 			'fp_new_window'   => false,
-			'fp_icon'         => 'fa-home',
+			'fp_icon'         => 'fa-phone',
 			'fp_bg_color'     => '#ffffff',
 		) );
 
@@ -157,7 +157,7 @@ class PT_Sticky_Menu {
 							ob_start();
 						?>
 							<!-- Call to Action -->
-							<div class="pt-sticky-menu__call-to-action  hidden-xs-down">
+							<div class="pt-sticky-menu__call-to-action  hidden-md-down">
 								<a class="btn  btn-primary" target="<?php echo esc_attr( $cta['target'] ); ?>" href="<?php echo esc_url( $cta['url'] ); ?>">
 									<?php if ( ! empty( $cta['icon'] ) ) : ?>
 										<i class="fa  <?php echo esc_attr( $cta['icon'] ); ?>"></i>
@@ -184,7 +184,7 @@ class PT_Sticky_Menu {
 					<!-- Back to top button for Main Navigation on mobile -->
 					<div class="pt-sticky-menu__back-to-top hidden-sm-up">
 						<a href="#" class="btn  btn-dark  js-pt-sticky-menu-back-to-top">
-							<i class="fa fa-chevron-up"></i>
+							<i class="fa fa-bars"></i>
 						</a>
 					</div>
 				</div>
