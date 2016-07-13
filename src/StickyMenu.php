@@ -94,7 +94,7 @@ class StickyMenu {
 				<div class="pt-sticky-menu">
 					<!-- Logo and site name -->
 					<div class="pt-sticky-menu__logo">
-						<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
+						<a href="<?php echo esc_url( home_url( '/' ) ); ?>" tabindex="-1">
 							<?php
 
 							// Get logo theme_mod names for the logo.
@@ -160,7 +160,7 @@ class StickyMenu {
 						?>
 							<!-- Call to Action -->
 							<div class="pt-sticky-menu__call-to-action  hidden-md-down">
-								<a class="btn  btn-primary" target="<?php echo esc_attr( $cta['target'] ); ?>" href="<?php echo esc_url( $cta['url'] ); ?>">
+								<a class="btn  btn-primary" target="<?php echo esc_attr( $cta['target'] ); ?>" href="<?php echo esc_url( $cta['url'] ); ?>" tabindex="-1">
 									<?php if ( ! empty( $cta['icon'] ) ) : ?>
 										<i class="fa  <?php echo esc_attr( $cta['icon'] ); ?>"></i>
 									<?php endif; ?>
@@ -179,7 +179,7 @@ class StickyMenu {
 					</nav>
 					<!-- Hamburger Menu for mobile/tablet -->
 					<div class="pt-sticky-menu__hamburger  hidden-lg-up">
-						<a href="#" class="btn  <?php echo apply_filters( 'pt-sticky-menu/mobile_menu_button_class', 'btn-primary' ); ?>  js-pt-sticky-menu-back-to-top-open-menu">
+						<a href="#" class="btn  <?php echo apply_filters( 'pt-sticky-menu/mobile_menu_button_class', 'btn-primary' ); ?>  js-pt-sticky-menu-back-to-top-open-menu" tabindex="-1">
 							<i class="fa  fa-bars  hamburger"></i> <span class="pt-sticky-menu__hamburger-text"><?php esc_html_e( 'MENU' , 'pt-sticky-menu' ); ?></span>
 						</a>
 					</div>
