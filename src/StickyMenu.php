@@ -51,7 +51,7 @@ class StickyMenu {
 		// Display sticky menu HTML output in the footer if sticky menu is enabled in customizer.
 		add_action( 'wp_footer', array( $this, 'sticky_menu_output' ) );
 
-		// Display sticky menu HTML output in the footer if sticky menu is enabled in customizer.
+		// Add tabindex attr to <a>
 		add_filter( 'nav_menu_link_attributes', array( $this, 'nav_menu_link_attributes' ), 10, 3 );
 
 		// Add the body class, when sticky menu is enabled.
