@@ -66,13 +66,13 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 		registerClickEventListeners: function () {
 
 			// Back to top animation and open the mobile menu.
-			$( document ).on( 'click' , '.js-pt-sticky-menu-back-to-top-open-menu', function() {
-				$( 'html, body' ).animate( { scrollTop : 0 }, 500, 'swing', function() {
+			$( document ).on( 'click' , '.js-pt-sticky-menu-back-to-top-open-menu', _.bind( function() {
+				$( 'html, body' ).animate( { scrollTop : ( $( '.js-sticky-mobile-option' ).offset().top - this.getAdminBarHeight() ) }, 500, 'swing', function() {
 					$( '.js-sticky-mobile-option' ).click();
 				} );
 
 				return false;
-			} );
+			}, this ) );
 		},
 
 		/**
