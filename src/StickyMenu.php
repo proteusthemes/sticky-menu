@@ -3,8 +3,6 @@ namespace ProteusThemes\StickyMenu;
 
 /**
  * Sticky menu for all newer PT themes.
- *
- * @package pt-sticky-menu
  */
 
 /**
@@ -70,7 +68,7 @@ class StickyMenu {
 	/**
 	 * Register customizer controls, settings and other things.
 	 *
-	 * PT_Sticky_Menu_Customizer class will be auto-loaded with PHP composer.
+	 * Customizer class will be auto-loaded with PHP composer.
 	 *
 	 * @param WP_Customize_Manager $wp_customize The customizer manager.
 	 */
