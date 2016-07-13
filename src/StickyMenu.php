@@ -25,6 +25,11 @@ class StickyMenu {
 	private $default_settings;
 
 	/**
+	 * Menu HTML ID attr
+	 */
+	const MENU_ID = 'pt-sticky-main-menu';
+
+	/**
 	 * PT_Sticky_Menu construct function.
 	 */
 	protected function __construct() {
@@ -45,6 +50,9 @@ class StickyMenu {
 
 		// Display sticky menu HTML output in the footer if sticky menu is enabled in customizer.
 		add_action( 'wp_footer', array( $this, 'sticky_menu_output' ) );
+
+		// Display sticky menu HTML output in the footer if sticky menu is enabled in customizer.
+		add_filter( 'nav_menu_link_attributes', array( $this, 'nav_menu_link_attributes' ), 10, 3 );
 
 		// Add the body class, when sticky menu is enabled.
 		add_filter( 'body_class', array( $this, 'body_class' ) );
@@ -127,8 +135,8 @@ class StickyMenu {
 									'theme_location' => $menu_location,
 									'container'      => false,
 									'menu_class'     => 'main-navigation',
-									'walker'         => new \Aria_Walker_Nav_Menu(),
 									'items_wrap'     => '<ul id="%1$s" class="%2$s" role="menubar">%3$s</ul>',
+									'menu_id'        => self::MENU_ID, // this differentiates footer menu from main menu in header
 								) );
 							}
 							?>
@@ -186,6 +194,22 @@ class StickyMenu {
 		</div>
 	<?php
 		endif;
+	}
+
+
+	/**
+	 * Add tabindex to the sticky menu links
+	 * @param  array $atts existing attributes
+	 * @param  object $item
+	 * @param  stdObj $args
+	 * @return array
+	 */
+	public function nav_menu_link_attributes( $atts, $item, $args ) {
+		if ( $args->menu_id === self::MENU_ID && ! array_key_exists( 'tabindex', $atts ) ) {
+			$atts['tabindex'] = '-1';
+		}
+
+		return $atts;
 	}
 
 
