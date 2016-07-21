@@ -43,6 +43,9 @@ class StickyMenu {
 			'fp_new_window'   => false,
 			'fp_icon'         => 'fa-phone',
 			'fp_bg_color'     => '#ffffff',
+			'logo_selected'   => false,
+			'logo_img'        => '',
+			'logo2x_img'      => '',
 		) );
 
 		// Register customizer.
@@ -102,14 +105,23 @@ class StickyMenu {
 					<div class="pt-sticky-menu__logo">
 						<a href="<?php echo esc_url( home_url( '/' ) ); ?>" tabindex="-1">
 							<?php
+							$logo = $logo2x = '';
 
-							// Get logo theme_mod names for the logo.
-							$logo_settings = apply_filters( 'pt-sticky-menu/logo_mod_names', array(
-								'logo'        => 'logo_img',
-								'retina_logo' => 'logo2x_img',
-							) );
-							$logo   = get_theme_mod( $logo_settings['logo'], false );
-							$logo2x = get_theme_mod( $logo_settings['retina_logo'], false );
+							// Use sticky menu specific logos if selected, otherwise use the default theme logos.
+							$sticky_logo_selected = get_theme_mod( 'sticky_logo_selected', $this->default_settings['logo_selected'] );
+							if ( ! empty( $sticky_logo_selected ) ) {
+								$logo   = get_theme_mod( 'sticky_logo_img', $this->default_settings['logo_img'] );
+								$logo2x = get_theme_mod( 'sticky_logo2x_img', $this->default_settings['logo2x_img'] );
+							}
+							else {
+								// Get logo theme_mod names for the logo.
+								$logo_settings = apply_filters( 'pt-sticky-menu/logo_mod_names', array(
+									'logo'        => 'logo_img',
+									'retina_logo' => 'logo2x_img',
+								) );
+								$logo   = get_theme_mod( $logo_settings['logo'], false );
+								$logo2x = get_theme_mod( $logo_settings['retina_logo'], false );
+							}
 
 							if ( ! empty( $logo ) ) :
 							?>

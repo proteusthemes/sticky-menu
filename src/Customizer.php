@@ -54,6 +54,9 @@ class Customizer {
 			'fp_new_window'   => false,
 			'fp_icon'         => 'fa-phone',
 			'fp_bg_color'     => '#ffffff',
+			'logo_selected'   => false,
+			'logo_img'        => '',
+			'logo2x_img'      => '',
 		) );
 
 		// Section.
@@ -85,6 +88,15 @@ class Customizer {
 		) );
 		$this->wp_customize->add_setting( 'sticky_menu_bg_color', array(
 			'default' => $settings_defaults['fp_bg_color'],
+		) );
+		$this->wp_customize->add_setting( 'sticky_logo_selected', array(
+			'default' => $settings_defaults['logo_selected'],
+		) );
+		$this->wp_customize->add_setting( 'sticky_logo_img', array(
+			'default' => $settings_defaults['logo_img'],
+		) );
+		$this->wp_customize->add_setting( 'sticky_logo2x_img', array(
+			'default' => $settings_defaults['logo2x_img'],
 		) );
 
 		// Controls.
@@ -145,6 +157,36 @@ class Customizer {
 				'active_callback' => array( $this, 'is_sticky_menu_selected' ),
 			)
 		) );
+
+		$this->wp_customize->add_control( 'sticky_logo_selected', array(
+			'type'            => 'checkbox',
+			'priority'        => 80,
+			'label'           => esc_html__( 'Set custom logos for sticky menu?', 'pt-sticky-menu' ),
+			'section'         => 'sticky_menu_section',
+			'active_callback' => array( $this, 'is_sticky_menu_selected' ),
+		) );
+
+		$this->wp_customize->add_control( new \WP_Customize_Image_Control(
+			$this->wp_customize,
+			'sticky_logo_img',
+			array(
+				'priority'        => 90,
+				'label'           => esc_html__( 'Logo Image', 'pt-sticky-menu' ),
+				'section'         => 'sticky_menu_section',
+				'active_callback' => array( $this, 'is_custom_logo_selected' ),
+			)
+		) );
+		$this->wp_customize->add_control( new \WP_Customize_Image_Control(
+			$this->wp_customize,
+			'sticky_logo2x_img',
+			array(
+				'priority'        => 100,
+				'label'           => esc_html__( 'Retina Logo Image', 'pt-sticky-menu' ),
+				'description'     => esc_html__( '2x logo size, for screens with high DPI.', 'pt-sticky-menu' ),
+				'section'         => 'sticky_menu_section',
+				'active_callback' => array( $this, 'is_custom_logo_selected' ),
+			)
+		) );
 	}
 
 	/**
@@ -178,5 +220,16 @@ class Customizer {
 	 */
 	public function is_featured_page_custom_url() {
 		return $this->is_sticky_menu_selected() && ( 'custom-url' === get_theme_mod( 'sticky_menu_featured_page_select', 'none' ) );
+	}
+
+	/**
+	 * Returns if sticky menu and the custom logo checkboxes are selected.
+	 *
+	 * Used by the sticky_logo_img and sticky_logo2x_img controls.
+	 *
+	 * @return boolean
+	 */
+	public function is_custom_logo_selected() {
+		return $this->is_sticky_menu_selected() && get_theme_mod( 'sticky_logo_selected' );
 	}
 }
