@@ -60,5 +60,13 @@
 				display: inline;
 			}
 		}
+
+		.fa {
+			margin-right: 0;
+
+			@media (min-width: 544px) {
+				margin-right: ptr(7);
+			}
+		}
 	}
 }

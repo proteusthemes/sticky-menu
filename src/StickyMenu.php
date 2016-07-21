@@ -186,7 +186,7 @@ class StickyMenu {
 					<!-- Hamburger Menu for mobile/tablet -->
 					<div class="pt-sticky-menu__hamburger  hidden-lg-up">
 						<a href="#" class="btn  <?php echo apply_filters( 'pt-sticky-menu/mobile_menu_button_class', 'btn-primary' ); ?>  js-pt-sticky-menu-back-to-top-open-menu" tabindex="-1">
-							<i class="fa  fa-bars  hamburger"></i> <span class="pt-sticky-menu__hamburger-text"><?php esc_html_e( 'MENU' , 'pt-sticky-menu' ); ?></span>
+							<i class="fa  fa-bars"></i> <span class="pt-sticky-menu__hamburger-text"><?php esc_html_e( 'MENU' , 'pt-sticky-menu' ); ?></span>
 						</a>
 					</div>
 				</div>
