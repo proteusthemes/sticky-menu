@@ -180,7 +180,7 @@ class StickyMenu {
 						?>
 							<!-- Call to Action -->
 							<div class="pt-sticky-menu__call-to-action  hidden-md-down">
-								<a class="btn  btn-primary" target="<?php echo esc_attr( $cta['target'] ); ?>" href="<?php echo esc_url( $cta['url'] ); ?>" tabindex="-1">
+								<a class="btn  <?php echo apply_filters( 'pt-sticky-menu/cta_button_class', 'btn-primary' ); ?>" target="<?php echo esc_attr( $cta['target'] ); ?>" href="<?php echo esc_url( $cta['url'] ); ?>" tabindex="-1">
 									<?php if ( ! empty( $cta['icon'] ) ) : ?>
 										<i class="fa  <?php echo esc_attr( $cta['icon'] ); ?>"></i>
 									<?php endif; ?>

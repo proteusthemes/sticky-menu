@@ -35,4 +35,5 @@ There are a few filters, which you can use to modify the behavior of the sticky 
 - `pt-sticky-menu/theme_menu_location`, change menu location name used for the sticky menu,
 - `pt-sticky-menu/cta_html_output`, change the CTA HTML output,
 - `pt-sticky-menu/theme_panel`, change the customizer panel name, to which the Sticky Menu section will be attached,
-- `pt-sticky-menu/mobile_menu_button_class`, mobile menu button class, default is `btn-primary`.
+- `pt-sticky-menu/mobile_menu_button_class`, mobile menu button class, default is `btn-primary`,
+- `pt-sticky-menu/cta_button_class`, CTA button class, default is `btn-primary`.
