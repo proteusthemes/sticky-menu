@@ -32,6 +32,9 @@ class Customizer {
 
 		// Register the sections/settings/controls, main method.
 		$this->register();
+
+		// Save sticky menu specific logo width/height dimensions.
+		add_action( 'customize_save_sticky_logo_img' , array( $this, 'save_sticky_logo_dimensions' ), 10, 1 );
 	}
 
 	/**
@@ -231,5 +234,25 @@ class Customizer {
 	 */
 	public function is_custom_logo_selected() {
 		return $this->is_sticky_menu_selected() && get_theme_mod( 'sticky_logo_selected' );
+	}
+
+	/**
+	 * Set the dimensions of the sticky logo image when the setting is saved.
+	 * This is purely a performance improvement.
+	 *
+	 * Used by hook: add_action( 'customize_save_sticky_logo_img' , array( $this, 'save_sticky_logo_dimensions' ), 10, 1 );
+	 *
+	 * @return void
+	 */
+	public static function save_sticky_logo_dimensions( $setting ) {
+		$logo_width_height = array();
+		$img_data          = getimagesize( esc_url( $setting->post_value() ) );
+
+		if ( is_array( $img_data ) ) {
+			$logo_width_height = array_slice( $img_data, 0, 2 );
+			$logo_width_height = array_combine( array( 'width', 'height' ), $logo_width_height );
+		}
+
+		set_theme_mod( 'sticky_logo_dimensions_array', $logo_width_height );
 	}
 }

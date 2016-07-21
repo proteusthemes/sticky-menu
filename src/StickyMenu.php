@@ -106,12 +106,14 @@ class StickyMenu {
 						<a href="<?php echo esc_url( home_url( '/' ) ); ?>" tabindex="-1">
 							<?php
 							$logo = $logo2x = '';
+							$logo_dimensions_mod = 'logo_dimensions_array';
 
 							// Use sticky menu specific logos if selected, otherwise use the default theme logos.
 							$sticky_logo_selected = get_theme_mod( 'sticky_logo_selected', $this->default_settings['logo_selected'] );
 							if ( ! empty( $sticky_logo_selected ) ) {
 								$logo   = get_theme_mod( 'sticky_logo_img', $this->default_settings['logo_img'] );
 								$logo2x = get_theme_mod( 'sticky_logo2x_img', $this->default_settings['logo2x_img'] );
+								$logo_dimensions_mod = 'sticky_logo_dimensions_array';
 							}
 							else {
 								// Get logo theme_mod names for the logo.
@@ -125,7 +127,7 @@ class StickyMenu {
 
 							if ( ! empty( $logo ) ) :
 							?>
-								<img src="<?php echo esc_url( $logo ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" srcset="<?php echo esc_attr( $logo ); ?><?php echo empty( $logo2x ) ? '' : ', ' . esc_url( $logo2x ) . ' 2x'; ?>" class="img-fluid" <?php echo $this->get_logo_dimensions(); ?> />
+								<img src="<?php echo esc_url( $logo ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" srcset="<?php echo esc_attr( $logo ); ?><?php echo empty( $logo2x ) ? '' : ', ' . esc_url( $logo2x ) . ' 2x'; ?>" class="img-fluid" <?php echo $this->get_logo_dimensions( $logo_dimensions_mod ); ?> />
 							<?php
 							else :
 							?>
