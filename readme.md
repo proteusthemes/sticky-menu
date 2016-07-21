@@ -14,11 +14,15 @@ The sticky menu will be displayed only when the user scrolls up, otherwise it wi
 
 ## Instructions ##
 
-1. require this package in your composer.json file: "proteusthemes/sticky-menu"
-2. run `composer update`
+1. require this package in your composer.json file: "proteusthemes/sticky-menu",
+2. run `composer update`,
 3. import the basic SCSS file into the theme (in style.scss file):
-`@import '../../vendor/proteusthemes/sticky-menu/assets/scss/sticky-menu-minimal';`
-4. insert `js-sticky-mobile-option` and `js-sticky-desktop-option` classes, to the HTML elements, from which the sticky menu will be active. Example: add `js-sticky-mobile-option` class to hamburger button and add the `js-sticky-desktop-option` class to the nav element in header. When the browser window top will scroll to these elements, the sticky menu will be activated.
+`@import '../../vendor/proteusthemes/sticky-menu/assets/scss/sticky-menu-minimal';`,
+4. require the js file in the theme (in main.js file). Just add this path to the `require` call: `'vendor/proteusthemes/sticky-menu/assets/js/sticky-menu'`,
+5. run `grunt build`, to generate new style.css file (with sticky menu css),
+6. insert `js-sticky-mobile-option` and `js-sticky-desktop-option` classes, to the HTML elements, from which the sticky menu will be active. Example: add `js-sticky-mobile-option` class to hamburger button and add the `js-sticky-desktop-option` class to the nav element in header. When the browser window top will scroll to these elements, the sticky menu will be activated,
+7. use the `pt-sticky-menu/theme_panel` filter to set the panel, to which the sticky menu will be attached in the customizer,
+8. instantiate the sticky menu class (take a look at the */inc/theme-sticky-menu.php* file in Auto theme, which is then required in functions.php)
 
 That should be it. Now you just have to style the sticky menu according to the theme style.
 
