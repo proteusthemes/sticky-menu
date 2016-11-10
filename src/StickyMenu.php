@@ -148,7 +148,7 @@ class StickyMenu {
 								wp_nav_menu( array(
 									'theme_location' => $menu_location,
 									'container'      => false,
-									'menu_class'     => 'main-navigation',
+									'menu_class'     => 'main-navigation  js-dropdown',
 									'items_wrap'     => '<ul id="%1$s" class="%2$s" role="menubar">%3$s</ul>',
 									'menu_id'        => self::MENU_ID, // this differentiates footer menu from main menu in header
 								) );

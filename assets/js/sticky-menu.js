@@ -53,10 +53,24 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 		 * Display the sticky menu (register the scroll event).
 		 */
 		registerScrollEventListner: function () {
-			$( window ).on( 'scroll.ptStickyMenu', _.bind( _.throttle( function() {
+			var currentMenuState = false,
+				newMenuState = false; // false = closed, true = opened
 
-				// Display the sticky menu only if scrolling up and if the window top is bellow the offset marker.
-				$( '.' + config.stickyContainerClass ).toggleClass( config.stickyMenuActiveClass, this.isScrollDirectionUp() && this.isWindowTopBellowOffset() );
+			$( window ).on( 'scroll.ptStickyMenu', _.bind( _.throttle( function() {
+				// check for new state
+				newMenuState = this.isScrollDirectionUp() && this.isWindowTopBellowOffset();
+
+				if ( currentMenuState !== newMenuState ) {
+					// update state
+					currentMenuState = newMenuState;
+
+					// Display the sticky menu only if scrolling up and if the window top is bellow the offset marker.
+					$( '.' + config.stickyContainerClass ).toggleClass( config.stickyMenuActiveClass, currentMenuState );
+
+					// trigger event which allows other modules to subscribe to it
+					var evToTrigger = currentMenuState ? 'ptStickyMenuShow' : 'ptStickyMenuHide';
+					$( '.' + config.stickyContainerClass + ' .js-dropdown' ).trigger( evToTrigger );
+				}
 			}, 20 ), this ) ); // 1000/20 = 50fps. Good performance.
 		},
 
