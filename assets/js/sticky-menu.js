@@ -151,7 +151,7 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 			var scrollDirection = this.getScrollDirection();
 
 			// Return true, if the scroll direction is up OR if the direction is down and very slow (less then 10px per 50ms).
-			if ( scrollDirection < 0 || ( scrollDirection < config.scrollDownIgnore && scrollDirection > 0 && $( '.' + config.stickyContainerClass ).hasClass( config.stickyMenuActiveClass ) ) ) {
+			if ( scrollDirection <= 0 || ( scrollDirection < config.scrollDownIgnore && scrollDirection > 0 && $( '.' + config.stickyContainerClass ).hasClass( config.stickyMenuActiveClass ) ) ) {
 				return true;
 			}
 
