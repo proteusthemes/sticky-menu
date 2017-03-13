@@ -72,34 +72,44 @@ class Customizer {
 
 		// Settings.
 		$this->wp_customize->add_setting( 'sticky_menu_select', array(
-			'default' => $settings_defaults['sticky_selected'],
+			'default'           => $settings_defaults['sticky_selected'],
+			'sanitize_callback' => 'sanitize_key',
 		) );
 		$this->wp_customize->add_setting( 'sticky_menu_featured_page_select', array(
-			'default' => $settings_defaults['fp_select'],
+			'default'           => $settings_defaults['fp_select'],
+			'sanitize_callback' => 'sanitize_key',
 		) );
 		$this->wp_customize->add_setting( 'sticky_menu_featured_page_custom_text', array(
-			'default' => $settings_defaults['fp_custom_text'],
+			'default'           => $settings_defaults['fp_custom_text'],
+			'sanitize_callback' => 'wp_kses_post',
 		) );
 		$this->wp_customize->add_setting( 'sticky_menu_featured_page_custom_url', array(
-			'default' => $settings_defaults['fp_cutsom_url'],
+			'default'           => $settings_defaults['fp_cutsom_url'],
+			'sanitize_callback' => 'esc_url',
 		) );
 		$this->wp_customize->add_setting( 'sticky_menu_featured_page_open_in_new_window', array(
-			'default' => $settings_defaults['fp_new_window'],
+			'default'           => $settings_defaults['fp_new_window'],
+			'sanitize_callback' => 'sanitize_key',
 		) );
 		$this->wp_customize->add_setting( 'sticky_menu_featured_page_icon', array(
-			'default' => $settings_defaults['fp_icon'],
+			'default'           => $settings_defaults['fp_icon'],
+			'sanitize_callback' => 'esc_attr',
 		) );
 		$this->wp_customize->add_setting( 'sticky_menu_bg_color', array(
-			'default' => $settings_defaults['fp_bg_color'],
+			'default'           => $settings_defaults['fp_bg_color'],
+			'sanitize_callback' => 'esc_html',
 		) );
 		$this->wp_customize->add_setting( 'sticky_logo_selected', array(
-			'default' => $settings_defaults['logo_selected'],
+			'default'           => $settings_defaults['logo_selected'],
+			'sanitize_callback' => 'sanitize_key',
 		) );
 		$this->wp_customize->add_setting( 'sticky_logo_img', array(
-			'default' => $settings_defaults['logo_img'],
+			'default'           => $settings_defaults['logo_img'],
+			'sanitize_callback' => 'esc_url',
 		) );
 		$this->wp_customize->add_setting( 'sticky_logo2x_img', array(
-			'default' => $settings_defaults['logo2x_img'],
+			'default'           => $settings_defaults['logo2x_img'],
+			'sanitize_callback' => 'esc_url',
 		) );
 
 		// Controls.
