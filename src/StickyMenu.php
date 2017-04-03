@@ -219,7 +219,7 @@ class StickyMenu {
 	 * @return array
 	 */
 	public function nav_menu_link_attributes( $atts, $item, $args ) {
-		if ( $args->menu_id === self::MENU_ID && ! array_key_exists( 'tabindex', $atts ) ) {
+		if ( isset( $args->menu_id ) && $args->menu_id === self::MENU_ID && ! array_key_exists( 'tabindex', $atts ) ) {
 			$atts['tabindex'] = '-1';
 		}
 
