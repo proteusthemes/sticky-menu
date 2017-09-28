@@ -100,7 +100,7 @@ class StickyMenu {
 
 
 			$bootstrap_hide_on_desktop = ( '4-beta' === $this->default_settings['bootstrap_version'] ) ? 'd-lg-none' : 'hidden-lg-up' ;
-			$bootstrap_hide_on_mobile  = ( '4-beta' === $this->default_settings['bootstrap_version'] ) ? 'd-none d-lg-block' : 'hidden-md-down' ;
+			$bootstrap_hide_on_mobile  = ( '4-beta' === $this->default_settings['bootstrap_version'] ) ? 'd-none d-lg-inline' : 'hidden-md-down' ;
 	?>
 
 		<div class="pt-sticky-menu__container  js-pt-sticky-menu" style="background-color: <?php echo esc_attr( get_theme_mod( 'sticky_menu_bg_color', $this->default_settings['fp_bg_color'] ) ); ?>;">
