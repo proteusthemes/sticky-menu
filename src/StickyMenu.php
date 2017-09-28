@@ -36,16 +36,17 @@ class StickyMenu {
 
 		// Get default customizer settings.
 		$this->default_settings = apply_filters( 'pt-sticky-menu/settings_default', array(
-			'sticky_selected' => false,
-			'fp_select'       => 'none',
-			'fp_custom_text'  => 'Featured Page',
-			'fp_cutsom_url'   => '#',
-			'fp_new_window'   => false,
-			'fp_icon'         => 'fa-phone',
-			'fp_bg_color'     => '#ffffff',
-			'logo_selected'   => false,
-			'logo_img'        => '',
-			'logo2x_img'      => '',
+			'sticky_selected'   => false,
+			'fp_select'         => 'none',
+			'fp_custom_text'    => 'Featured Page',
+			'fp_cutsom_url'     => '#',
+			'fp_new_window'     => false,
+			'fp_icon'           => 'fa-phone',
+			'fp_bg_color'       => '#ffffff',
+			'logo_selected'     => false,
+			'logo_img'          => '',
+			'logo2x_img'        => '',
+			'bootstrap_version' => '4-alpha',
 		) );
 
 		// Register customizer.
@@ -96,6 +97,10 @@ class StickyMenu {
 		// Display sticky menu if sticky menu is enabled in customizer.
 		// The condition has to be here, otherwise the customizer refresh is not working.
 		if ( get_theme_mod( 'sticky_menu_select', $this->default_settings['sticky_selected'] ) ) :
+
+
+			$bootstrap_hide_on_desktop = ( '4-beta' === $this->default_settings['bootstrap_version'] ) ? 'd-lg-none' : 'hidden-lg-up' ;
+			$bootstrap_hide_on_mobile  = ( '4-beta' === $this->default_settings['bootstrap_version'] ) ? 'd-none d-lg-block' : 'hidden-md-down' ;
 	?>
 
 		<div class="pt-sticky-menu__container  js-pt-sticky-menu" style="background-color: <?php echo esc_attr( get_theme_mod( 'sticky_menu_bg_color', $this->default_settings['fp_bg_color'] ) ); ?>;">
@@ -179,7 +184,7 @@ class StickyMenu {
 							ob_start();
 						?>
 							<!-- Call to Action -->
-							<div class="pt-sticky-menu__call-to-action  hidden-md-down">
+							<div class="pt-sticky-menu__call-to-action  <?php echo esc_attr( $bootstrap_hide_on_mobile ); ?>">
 								<a class="btn  <?php echo apply_filters( 'pt-sticky-menu/cta_button_class', 'btn-primary' ); ?>" target="<?php echo esc_attr( $cta['target'] ); ?>" href="<?php echo esc_url( $cta['url'] ); ?>" tabindex="-1">
 									<?php if ( ! empty( $cta['icon'] ) ) : ?>
 										<i class="fa  <?php echo esc_attr( $cta['icon'] ); ?>"></i>
@@ -198,7 +203,7 @@ class StickyMenu {
 						?>
 					</nav>
 					<!-- Hamburger Menu for mobile/tablet -->
-					<div class="pt-sticky-menu__hamburger  hidden-lg-up">
+					<div class="pt-sticky-menu__hamburger  <?php echo esc_attr( $bootstrap_hide_on_desktop ); ?>">
 						<a href="#" class="btn  <?php echo apply_filters( 'pt-sticky-menu/mobile_menu_button_class', 'btn-primary' ); ?>  js-pt-sticky-menu-back-to-top-open-menu" tabindex="-1">
 							<i class="fa  fa-bars"></i> <span class="pt-sticky-menu__hamburger-text"><?php esc_html_e( 'MENU' , 'pt-sticky-menu' ); ?></span>
 						</a>
