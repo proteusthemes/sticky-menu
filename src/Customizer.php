@@ -129,7 +129,7 @@ class Customizer {
 			'type'     => 'select',
 			'priority' => 10,
 			'label'    => esc_html__( 'Sticky menu layout', 'pt-sticky-menu' ),
-			'description'     => esc_html__( 'In which scroll direction show Sticky menu?', 'pt-sticky-menu' ),
+			'description'     => esc_html__( 'Sticky menu visibility', 'pt-sticky-menu' ),
 			'section'  => 'sticky_menu_section',
 			'choices'  => array(
 				'up-only'  => esc_html__( 'Show only on scroll up', 'pt-sticky-menu' ),

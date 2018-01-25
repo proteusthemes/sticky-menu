@@ -59,7 +59,7 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 
 			$( window ).on( 'scroll.ptStickyMenu', _.bind( _.throttle( function() {
 				// check for new state
-				newMenuState = this.isScrollDirectionUp() && this.isWindowTopBellowOffset();
+				newMenuState = ( this.isScrollDirectionUp() || this.isAllDirectionEnabled() ) && this.isWindowTopBellowOffset() ;
 
 				if ( currentMenuState !== newMenuState ) {
 					// update state
@@ -148,16 +148,16 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 		/**
 		 * Is the direction of the scroll = up?
 		 */
+		isAllDirectionEnabled: function () {
+			// Return true, if scroll all direction is set
+			return $( 'body' ).hasClass( config.bodyStickyLayoutClass );
+		},
+
 		isScrollDirectionUp: function () {
 			var scrollDirection = this.getScrollDirection();
 
 			// Return true, if the scroll direction is up OR if the direction is down and very slow (less then 10px per 50ms).
 			if ( scrollDirection < 0 || ( scrollDirection < config.scrollDownIgnore && scrollDirection >= 0 && $( '.' + config.stickyContainerClass ).hasClass( config.stickyMenuActiveClass ) ) ) {
-				return true;
-			}
-
-			// Return true, if scroll all direction is set
-			if ( $( 'body' ).hasClass( config.bodyStickyLayoutClass ) ) {
 				return true;
 			}
 
