@@ -37,6 +37,7 @@ class StickyMenu {
 		// Get default customizer settings.
 		$this->default_settings = apply_filters( 'pt-sticky-menu/settings_default', array(
 			'sticky_selected'   => false,
+			'sticky_layout'   => false,
 			'fp_select'         => 'none',
 			'fp_custom_text'    => 'Featured Page',
 			'fp_cutsom_url'     => '#',
@@ -241,6 +242,10 @@ class StickyMenu {
 	public function body_class( $classes ) {
 		if ( get_theme_mod( 'sticky_menu_select', $this->default_settings['sticky_selected'] ) ) {
 			$classes[] = 'js-sticky-navigation';
+		}
+
+		if ( get_theme_mod( 'sticky_menu_layout', $this->default_settings['sticky_layout'] ) ) {
+			$classes[] = 'js-sticky-all';
 		}
 
 		return $classes;

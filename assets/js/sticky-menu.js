@@ -9,6 +9,7 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 
 	var config = {
 		bodyStickyClass:       'js-sticky-navigation', // Present, when sticky is enabled in customizer.
+		bodyStickyLayoutClass: 'js-sticky-all', // Class used for triggering the sticky menu layout.
 		stickyOffsetClass:     'js-sticky-offset', // Class used for triggering the sticky menu.
 		stickyContainerClass:  'js-pt-sticky-menu', // Class of the main sticky menu container.
 		stickyMenuActiveClass: 'is-shown', // Class next to the main sticky menu container, when sticky is active.
@@ -137,7 +138,7 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 		 */
 		getScrollDirection: function () {
 			var currentWindowTop = $( window ).scrollTop(),
-					value            = currentWindowTop - this.windowTop;
+			value = currentWindowTop - this.windowTop;
 
 			this.windowTop = currentWindowTop;
 
@@ -155,6 +156,11 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 				return true;
 			}
 
+			// Return true, if scroll all direction is set
+            if ( $( 'body' ).hasClass( config.bodyStickyLayoutClass ) ) {
+                return true;
+            }
+
 			return false;
 		},
 
@@ -166,8 +172,8 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 		},
 	} );
 
-	// Check, if sticky menu is enabled in customizer.
-	if ( $( 'body' ).hasClass( config.bodyStickyClass ) ) {
-		new StickyMenu();
-	}
+    // Check, if sticky menu is enabled in customizer.
+    if ( $( 'body' ).hasClass( config.bodyStickyClass ) ) {
+        new StickyMenu();
+    }
 } );

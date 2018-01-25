@@ -51,6 +51,7 @@ class Customizer {
 
 		$settings_defaults = apply_filters( 'pt-sticky-menu/settings_default', array(
 			'sticky_selected' => false,
+			'sticky_layout'   => false,
 			'fp_select'       => 'none',
 			'fp_custom_text'  => 'Featured Page',
 			'fp_cutsom_url'   => '#',
@@ -73,6 +74,10 @@ class Customizer {
 		// Settings.
 		$this->wp_customize->add_setting( 'sticky_menu_select', array(
 			'default'           => $settings_defaults['sticky_selected'],
+			'sanitize_callback' => 'sanitize_key',
+		) );
+		$this->wp_customize->add_setting( 'sticky_menu_layout', array(
+			'default'           => $settings_defaults['sticky_layout'],
 			'sanitize_callback' => 'sanitize_key',
 		) );
 		$this->wp_customize->add_setting( 'sticky_menu_featured_page_select', array(
@@ -118,6 +123,19 @@ class Customizer {
 			'priority' => 10,
 			'label'    => esc_html__( 'Enable sticky menu', 'pt-sticky-menu' ),
 			'section'  => 'sticky_menu_section',
+		) );
+
+		$this->wp_customize->add_control( 'sticky_menu_layout', array(
+			'type'     => 'select',
+			'priority' => 10,
+			'label'    => esc_html__( 'Sticky menu layout', 'pt-sticky-menu' ),
+			'description'     => esc_html__( 'In which scroll direction show Sticky menu?', 'pt-sticky-menu' ),
+			'section'  => 'sticky_menu_section',
+			'choices'  => array(
+				false  => esc_html__( 'In Up direction only', 'gympress-pt' ),
+				true => esc_html__( 'In All directions', 'gympress-pt' ),
+			),
+			'active_callback' => array( $this, 'is_sticky_menu_selected' ),
 		) );
 
 		$this->wp_customize->add_control( 'sticky_menu_featured_page_select', array(
