@@ -137,8 +137,8 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 		 * Get the direction of scroll (negative value = up, positive value = down).
 		 */
 		getScrollDirection: function () {
-			var currentWindowTop = $( window ).scrollTop(),
-			value = currentWindowTop - this.windowTop;
+			var currentWindowTop = $(window).scrollTop(),
+				value = currentWindowTop - this.windowTop;
 
 			this.windowTop = currentWindowTop;
 
@@ -157,9 +157,9 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 			}
 
 			// Return true, if scroll all direction is set
-            if ( $( 'body' ).hasClass( config.bodyStickyLayoutClass ) ) {
-                return true;
-            }
+			if ( $( 'body' ).hasClass( config.bodyStickyLayoutClass ) ) {
+				return true;
+			}
 
 			return false;
 		},
@@ -172,8 +172,8 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 		},
 	} );
 
-    // Check, if sticky menu is enabled in customizer.
-    if ( $( 'body' ).hasClass( config.bodyStickyClass ) ) {
-        new StickyMenu();
-    }
+	// Check, if sticky menu is enabled in customizer.
+	if ( $( 'body' ).hasClass( config.bodyStickyClass ) ) {
+		new StickyMenu();
+	}
 } );

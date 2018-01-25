@@ -51,7 +51,7 @@ class Customizer {
 
 		$settings_defaults = apply_filters( 'pt-sticky-menu/settings_default', array(
 			'sticky_selected' => false,
-			'sticky_layout'   => false,
+			'sticky_layout'   => 'up-only',
 			'fp_select'       => 'none',
 			'fp_custom_text'  => 'Featured Page',
 			'fp_cutsom_url'   => '#',
@@ -132,8 +132,8 @@ class Customizer {
 			'description'     => esc_html__( 'In which scroll direction show Sticky menu?', 'pt-sticky-menu' ),
 			'section'  => 'sticky_menu_section',
 			'choices'  => array(
-				false  => esc_html__( 'In Up direction only', 'gympress-pt' ),
-				true => esc_html__( 'In All directions', 'gympress-pt' ),
+				'up-only'  => esc_html__( 'Show only on scroll up', 'pt-sticky-menu' ),
+				'all'      => esc_html__( 'Show all the time', 'pt-sticky-menu' ),
 			),
 			'active_callback' => array( $this, 'is_sticky_menu_selected' ),
 		) );
