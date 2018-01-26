@@ -153,7 +153,7 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 		},
 
 		/**
-		 * Is the direction of the scroll = up or down?
+		 * Is the direction of the scroll = up?
 		 */
 		isScrollDirectionUp: function () {
 			var scrollDirection = this.getScrollDirection();
