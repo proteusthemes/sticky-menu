@@ -8,11 +8,12 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 	'use strict';
 
 	var config = {
-		bodyStickyClass:       'js-sticky-navigation', // Present, when sticky is enabled in customizer.
-		stickyOffsetClass:     'js-sticky-offset', // Class used for triggering the sticky menu.
-		stickyContainerClass:  'js-pt-sticky-menu', // Class of the main sticky menu container.
-		stickyMenuActiveClass: 'is-shown', // Class next to the main sticky menu container, when sticky is active.
-		scrollDownIgnore:      7, // Number of pixels to ignore when scrolling down (so the menu does not hide).
+		bodyStickyClass:           'js-sticky-navigation', // Present, when sticky is enabled in customizer.
+		bodyStickyVisibilityClass: 'js-sticky-all', // Class used for triggering the sticky menu layout.
+		stickyOffsetClass:         'js-sticky-offset', // Class used for triggering the sticky menu.
+		stickyContainerClass:      'js-pt-sticky-menu', // Class of the main sticky menu container.
+		stickyMenuActiveClass:     'is-shown', // Class next to the main sticky menu container, when sticky is active.
+		scrollDownIgnore:          7, // Number of pixels to ignore when scrolling down (so the menu does not hide).
 	};
 
 	var StickyMenu = function() {
@@ -58,7 +59,7 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 
 			$( window ).on( 'scroll.ptStickyMenu', _.bind( _.throttle( function() {
 				// check for new state
-				newMenuState = this.isScrollDirectionUp() && this.isWindowTopBellowOffset();
+				newMenuState = ( this.isScrollDirectionUp() || this.isAllDirectionEnabled() ) && this.isWindowTopBellowOffset();
 
 				if ( currentMenuState !== newMenuState ) {
 					// update state
@@ -136,12 +137,19 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 		 * Get the direction of scroll (negative value = up, positive value = down).
 		 */
 		getScrollDirection: function () {
-			var currentWindowTop = $( window ).scrollTop(),
-					value            = currentWindowTop - this.windowTop;
+			var currentWindowTop = $(window).scrollTop(),
+				value = currentWindowTop - this.windowTop;
 
 			this.windowTop = currentWindowTop;
 
 			return value;
+		},
+
+		/**
+		 * Is scroll all directions enabled?
+		 */
+		isAllDirectionEnabled: function () {
+			return $( 'body' ).hasClass( config.bodyStickyVisibilityClass );
 		},
 
 		/**

@@ -50,16 +50,17 @@ class Customizer {
 		) );
 
 		$settings_defaults = apply_filters( 'pt-sticky-menu/settings_default', array(
-			'sticky_selected' => false,
-			'fp_select'       => 'none',
-			'fp_custom_text'  => 'Featured Page',
-			'fp_cutsom_url'   => '#',
-			'fp_new_window'   => false,
-			'fp_icon'         => 'fa-phone',
-			'fp_bg_color'     => '#ffffff',
-			'logo_selected'   => false,
-			'logo_img'        => '',
-			'logo2x_img'      => '',
+			'sticky_selected'   => false,
+			'sticky_visibility' => 'up-only',
+			'fp_select'         => 'none',
+			'fp_custom_text'    => 'Featured Page',
+			'fp_cutsom_url'     => '#',
+			'fp_new_window'     => false,
+			'fp_icon'           => 'fa-phone',
+			'fp_bg_color'       => '#ffffff',
+			'logo_selected'     => false,
+			'logo_img'          => '',
+			'logo2x_img'        => '',
 		) );
 
 		// Section.
@@ -73,6 +74,10 @@ class Customizer {
 		// Settings.
 		$this->wp_customize->add_setting( 'sticky_menu_select', array(
 			'default'           => $settings_defaults['sticky_selected'],
+			'sanitize_callback' => 'sanitize_key',
+		) );
+		$this->wp_customize->add_setting( 'sticky_menu_visibility', array(
+			'default'           => $settings_defaults['sticky_visibility'],
 			'sanitize_callback' => 'sanitize_key',
 		) );
 		$this->wp_customize->add_setting( 'sticky_menu_featured_page_select', array(
@@ -118,6 +123,18 @@ class Customizer {
 			'priority' => 10,
 			'label'    => esc_html__( 'Enable sticky menu', 'pt-sticky-menu' ),
 			'section'  => 'sticky_menu_section',
+		) );
+
+		$this->wp_customize->add_control( 'sticky_menu_visibility', array(
+			'type'     => 'select',
+			'priority' => 10,
+			'label'    => esc_html__( 'Sticky menu visibility', 'pt-sticky-menu' ),
+			'section'  => 'sticky_menu_section',
+			'choices'  => array(
+				'up-only'  => esc_html__( 'Show only on scroll up', 'pt-sticky-menu' ),
+				'all'      => esc_html__( 'Show all the time', 'pt-sticky-menu' ),
+			),
+			'active_callback' => array( $this, 'is_sticky_menu_selected' ),
 		) );
 
 		$this->wp_customize->add_control( 'sticky_menu_featured_page_select', array(
