@@ -76,7 +76,7 @@ class Customizer {
 			'default'           => $settings_defaults['sticky_selected'],
 			'sanitize_callback' => 'sanitize_key',
 		) );
-		$this->wp_customize->add_setting( 'sticky_menu_layout', array(
+		$this->wp_customize->add_setting( 'sticky_menu_visibility', array(
 			'default'           => $settings_defaults['sticky_visibility'],
 			'sanitize_callback' => 'sanitize_key',
 		) );
@@ -125,7 +125,7 @@ class Customizer {
 			'section'  => 'sticky_menu_section',
 		) );
 
-		$this->wp_customize->add_control( 'sticky_menu_layout', array(
+		$this->wp_customize->add_control( 'sticky_menu_visibility', array(
 			'type'     => 'select',
 			'priority' => 10,
 			'label'    => esc_html__( 'Sticky menu visibility', 'pt-sticky-menu' ),

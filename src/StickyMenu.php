@@ -244,7 +244,7 @@ class StickyMenu {
 			$classes[] = 'js-sticky-navigation';
 		}
 
-		if ( get_theme_mod( 'sticky_menu_layout', $this->default_settings['sticky_visibility'] ) == 'all' ) {
+		if ( get_theme_mod( 'sticky_menu_visibility', $this->default_settings['sticky_visibility'] ) == 'all' ) {
 			$classes[] = 'js-sticky-all';
 		}
 
