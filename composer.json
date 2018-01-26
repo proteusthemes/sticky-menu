@@ -2,7 +2,7 @@
   "name": "proteusthemes/sticky-menu",
   "description": "Sticky menu PHP composer package for all newer PT themes.",
   "keywords": ["wp", "wordpress", "customizer", "proteusthemes", "theme", "sticky", "menu"],
-  "license": "GPL-2.0+",
+  "license": "GPL-2.0-or-later",
   "authors": [
     {
       "name":  "Gregor Capuder",
