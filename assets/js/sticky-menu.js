@@ -9,7 +9,7 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 
 	var config = {
 		bodyStickyClass:       'js-sticky-navigation', // Present, when sticky is enabled in customizer.
-		bodyStickyLayoutClass: 'js-sticky-all', // Class used for triggering the sticky menu layout.
+		bodyStickyVisibilityClass: 'js-sticky-all', // Class used for triggering the sticky menu layout.
 		stickyOffsetClass:     'js-sticky-offset', // Class used for triggering the sticky menu.
 		stickyContainerClass:  'js-pt-sticky-menu', // Class of the main sticky menu container.
 		stickyMenuActiveClass: 'is-shown', // Class next to the main sticky menu container, when sticky is active.
@@ -59,7 +59,7 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 
 			$( window ).on( 'scroll.ptStickyMenu', _.bind( _.throttle( function() {
 				// check for new state
-				newMenuState = ( this.isScrollDirectionUp() || this.isAllDirectionEnabled() ) && this.isWindowTopBellowOffset() ;
+				newMenuState = ( this.isScrollDirectionUp() || this.isAllDirectionEnabled() ) && this.isWindowTopBellowOffset();
 
 				if ( currentMenuState !== newMenuState ) {
 					// update state
@@ -146,13 +146,15 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 		},
 
 		/**
-		 * Is the direction of the scroll = up?
+		 * Is all scroll directions enabled?
 		 */
 		isAllDirectionEnabled: function () {
-			// Return true, if scroll all direction is set
-			return $( 'body' ).hasClass( config.bodyStickyLayoutClass );
+			return $( 'body' ).hasClass( config.bodyStickyVisibilityClass );
 		},
 
+		/**
+		 * Is the direction of the scroll = up or down?
+		 */
 		isScrollDirectionUp: function () {
 			var scrollDirection = this.getScrollDirection();
 

@@ -50,17 +50,17 @@ class Customizer {
 		) );
 
 		$settings_defaults = apply_filters( 'pt-sticky-menu/settings_default', array(
-			'sticky_selected' => false,
-			'sticky_layout'   => 'up-only',
-			'fp_select'       => 'none',
-			'fp_custom_text'  => 'Featured Page',
-			'fp_cutsom_url'   => '#',
-			'fp_new_window'   => false,
-			'fp_icon'         => 'fa-phone',
-			'fp_bg_color'     => '#ffffff',
-			'logo_selected'   => false,
-			'logo_img'        => '',
-			'logo2x_img'      => '',
+			'sticky_selected'   => false,
+			'sticky_visibility' => 'up-only',
+			'fp_select'         => 'none',
+			'fp_custom_text'    => 'Featured Page',
+			'fp_cutsom_url'     => '#',
+			'fp_new_window'     => false,
+			'fp_icon'           => 'fa-phone',
+			'fp_bg_color'       => '#ffffff',
+			'logo_selected'     => false,
+			'logo_img'          => '',
+			'logo2x_img'        => '',
 		) );
 
 		// Section.
@@ -77,7 +77,7 @@ class Customizer {
 			'sanitize_callback' => 'sanitize_key',
 		) );
 		$this->wp_customize->add_setting( 'sticky_menu_layout', array(
-			'default'           => $settings_defaults['sticky_layout'],
+			'default'           => $settings_defaults['sticky_visibility'],
 			'sanitize_callback' => 'sanitize_key',
 		) );
 		$this->wp_customize->add_setting( 'sticky_menu_featured_page_select', array(
@@ -128,8 +128,7 @@ class Customizer {
 		$this->wp_customize->add_control( 'sticky_menu_layout', array(
 			'type'     => 'select',
 			'priority' => 10,
-			'label'    => esc_html__( 'Sticky menu layout', 'pt-sticky-menu' ),
-			'description'     => esc_html__( 'Sticky menu visibility', 'pt-sticky-menu' ),
+			'label'    => esc_html__( 'Sticky menu visibility', 'pt-sticky-menu' ),
 			'section'  => 'sticky_menu_section',
 			'choices'  => array(
 				'up-only'  => esc_html__( 'Show only on scroll up', 'pt-sticky-menu' ),
