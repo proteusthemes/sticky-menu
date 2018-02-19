@@ -42,12 +42,13 @@ class StickyMenu {
 			'fp_custom_text'    => 'Featured Page',
 			'fp_cutsom_url'     => '#',
 			'fp_new_window'     => false,
-			'fp_icon'           => 'fa-phone',
+			'fp_icon'           => 'fa fa-phone',
 			'fp_bg_color'       => '#ffffff',
 			'logo_selected'     => false,
 			'logo_img'          => '',
 			'logo2x_img'        => '',
 			'bootstrap_version' => '4-alpha',
+			'fa_version'        => 4,
 		) );
 
 		// Register customizer.
@@ -188,7 +189,7 @@ class StickyMenu {
 							<div class="pt-sticky-menu__call-to-action  <?php echo esc_attr( $bootstrap_hide_on_mobile ); ?>">
 								<a class="btn  <?php echo apply_filters( 'pt-sticky-menu/cta_button_class', 'btn-primary' ); ?>" target="<?php echo esc_attr( $cta['target'] ); ?>" href="<?php echo esc_url( $cta['url'] ); ?>" tabindex="-1">
 									<?php if ( ! empty( $cta['icon'] ) ) : ?>
-										<i class="fa  <?php echo esc_attr( $cta['icon'] ); ?>"></i>
+										<i class="<?php echo esc_attr( $cta['icon'] ); ?>"></i>
 									<?php endif; ?>
 									<?php echo esc_html( $cta['text'] ); ?>
 								</a>
@@ -204,9 +205,10 @@ class StickyMenu {
 						?>
 					</nav>
 					<!-- Hamburger Menu for mobile/tablet -->
+					<?php $fa_prefix = ( 4 < $this->default_settings['fa_version'] ) ? 'fas' : 'fa'; ?>
 					<div class="pt-sticky-menu__hamburger  <?php echo esc_attr( $bootstrap_hide_on_desktop ); ?>">
 						<a href="#" class="btn  <?php echo apply_filters( 'pt-sticky-menu/mobile_menu_button_class', 'btn-primary' ); ?>  js-pt-sticky-menu-back-to-top-open-menu" tabindex="-1">
-							<i class="fa  fa-bars"></i> <span class="pt-sticky-menu__hamburger-text"><?php esc_html_e( 'MENU' , 'pt-sticky-menu' ); ?></span>
+							<i class="<?php echo esc_attr( $fa_prefix ); ?>  fa-bars"></i> <span class="pt-sticky-menu__hamburger-text"><?php esc_html_e( 'MENU' , 'pt-sticky-menu' ); ?></span>
 						</a>
 					</div>
 				</div>

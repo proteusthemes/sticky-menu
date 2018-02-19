@@ -56,11 +56,13 @@ class Customizer {
 			'fp_custom_text'    => 'Featured Page',
 			'fp_cutsom_url'     => '#',
 			'fp_new_window'     => false,
-			'fp_icon'           => 'fa-phone',
+			'fp_icon'           => 'fa fa-phone',
 			'fp_bg_color'       => '#ffffff',
 			'logo_selected'     => false,
 			'logo_img'          => '',
 			'logo2x_img'        => '',
+			'bootstrap_version' => '4-alpha',
+			'fa_version'        => 4,
 		) );
 
 		// Section.
@@ -172,7 +174,7 @@ class Customizer {
 		$this->wp_customize->add_control( 'sticky_menu_featured_page_icon', array(
 			'priority'        => 60,
 			'label'           => esc_html__( 'Font Awesome icon', 'pt-sticky-menu' ),
-			'description'     => sprintf( esc_html__( 'Insert a %s icon. Example: fa-phone.', 'pt-sticky-menu' ), '<a href="http://fontawesome.io/icons/" target="_blank">Font Awesome</a>' ),
+			'description'     => sprintf( esc_html__( 'Insert a %1$s icon. Example: %2$s.', 'pt-sticky-menu' ), '<a href="http://fontawesome.io/icons/" target="_blank">Font Awesome</a>', $settings_defaults['fp_icon'] ),
 			'section'         => 'sticky_menu_section',
 			'active_callback' => array( $this, 'is_featured_page_selected' ),
 		) );
