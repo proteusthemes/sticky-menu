@@ -23,6 +23,6 @@
     }
   },
   "require": {
-    "proteusthemes/wp-customizer-utilities": "^2.3"
+    "proteusthemes/wp-customizer-utilities": "^2.7.3"
   }
 }
