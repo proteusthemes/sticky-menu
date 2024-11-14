@@ -61,7 +61,6 @@ class Customizer {
 			'logo_selected'     => false,
 			'logo_img'          => '',
 			'logo2x_img'        => '',
-			'bootstrap_version' => '4-alpha',
 			'fa_version'        => 4,
 		) );
 

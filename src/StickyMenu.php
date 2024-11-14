@@ -47,7 +47,6 @@ class StickyMenu {
 			'logo_selected'     => false,
 			'logo_img'          => '',
 			'logo2x_img'        => '',
-			'bootstrap_version' => '4-alpha',
 			'fa_version'        => 4,
 		) );
 
@@ -100,9 +99,8 @@ class StickyMenu {
 		// The condition has to be here, otherwise the customizer refresh is not working.
 		if ( get_theme_mod( 'sticky_menu_select', $this->default_settings['sticky_selected'] ) ) :
 
-
-			$bootstrap_hide_on_desktop = ( '4-beta' === $this->default_settings['bootstrap_version'] ) ? 'd-lg-none' : 'hidden-lg-up' ;
-			$bootstrap_hide_on_mobile  = ( '4-beta' === $this->default_settings['bootstrap_version'] ) ? 'd-none d-lg-inline' : 'hidden-md-down' ;
+			$bootstrap_hide_on_desktop = 'd-lg-none';
+			$bootstrap_hide_on_mobile  = 'd-none d-lg-inline';
 	?>
 
 		<div class="pt-sticky-menu__container  js-pt-sticky-menu" style="background-color: <?php echo esc_attr( get_theme_mod( 'sticky_menu_bg_color', $this->default_settings['fp_bg_color'] ) ); ?>;">
