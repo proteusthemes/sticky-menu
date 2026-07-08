@@ -82,8 +82,26 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 
 			// Back to top animation and open the mobile menu.
 			$( document ).on( 'click' , '.js-pt-sticky-menu-back-to-top-open-menu', _.bind( function() {
-				$( 'html, body' ).animate( { scrollTop : ( $( '.js-sticky-mobile-option' ).offset().top - this.getAdminBarHeight() ) }, 500, 'swing', function() {
-					$( '.js-sticky-mobile-option' ).click();
+
+				// Suspend browser scroll anchoring while the menu opens at the top edge of
+				// the viewport, otherwise the browser compensates for the expanding menu by
+				// scrolling back down, leaving the opened menu above the viewport.
+				$( 'html' ).css( 'overflow-anchor', 'none' );
+
+				// The animation completion has to run once per set (a per-element complete
+				// callback fires twice, once for html and once for body, clicking the toggle twice).
+				// .stop( true ) drops animations queued by impatient repeat clicks.
+				$( 'html, body' ).stop( true ).animate( { scrollTop : ( $( '.js-sticky-mobile-option' ).offset().top - this.getAdminBarHeight() ) }, 500, 'swing' ).promise().done( function() {
+
+					// The click is a toggle: skip it when the menu is already open,
+					// otherwise arriving at an open menu would close it.
+					if ( 'true' !== $( '.js-sticky-mobile-option' ).attr( 'aria-expanded' ) ) {
+						$( '.js-sticky-mobile-option' ).click();
+					}
+
+					setTimeout( function () {
+						$( 'html' ).css( 'overflow-anchor', '' );
+					}, 500 );
 				} );
 
 				return false;
