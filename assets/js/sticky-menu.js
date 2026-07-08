@@ -90,8 +90,14 @@ define( ['jquery', 'underscore'], function ( $, _ ) {
 
 				// The animation completion has to run once per set (a per-element complete
 				// callback fires twice, once for html and once for body, clicking the toggle twice).
-				$( 'html, body' ).animate( { scrollTop : ( $( '.js-sticky-mobile-option' ).offset().top - this.getAdminBarHeight() ) }, 500, 'swing' ).promise().done( function() {
-					$( '.js-sticky-mobile-option' ).click();
+				// .stop( true ) drops animations queued by impatient repeat clicks.
+				$( 'html, body' ).stop( true ).animate( { scrollTop : ( $( '.js-sticky-mobile-option' ).offset().top - this.getAdminBarHeight() ) }, 500, 'swing' ).promise().done( function() {
+
+					// The click is a toggle: skip it when the menu is already open,
+					// otherwise arriving at an open menu would close it.
+					if ( 'true' !== $( '.js-sticky-mobile-option' ).attr( 'aria-expanded' ) ) {
+						$( '.js-sticky-mobile-option' ).click();
+					}
 
 					setTimeout( function () {
 						$( 'html' ).css( 'overflow-anchor', '' );
