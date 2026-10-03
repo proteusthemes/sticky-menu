@@ -273,14 +273,6 @@ class Customizer {
 	 * @return void
 	 */
 	public static function save_sticky_logo_dimensions( $setting ) {
-		$logo_width_height = array();
-		$img_data          = getimagesize( esc_url( $setting->post_value() ) );
-
-		if ( is_array( $img_data ) ) {
-			$logo_width_height = array_slice( $img_data, 0, 2 );
-			$logo_width_height = array_combine( array( 'width', 'height' ), $logo_width_height );
-		}
-
-		set_theme_mod( 'sticky_logo_dimensions_array', $logo_width_height );
+		Helpers::save_logo_dimensions( $setting, 'sticky_logo_dimensions_array' );
 	}
 }
