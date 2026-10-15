@@ -155,6 +155,7 @@ class StickyMenu {
 								wp_nav_menu( array(
 									'theme_location' => $menu_location,
 									'container'      => false,
+									'fallback_cb'    => false,
 									'menu_class'     => 'main-navigation  js-dropdown',
 									'items_wrap'     => '<ul id="%1$s" class="%2$s" role="menubar">%3$s</ul>',
 									'menu_id'        => self::MENU_ID, // this differentiates footer menu from main menu in header
@@ -165,8 +166,10 @@ class StickyMenu {
 
 						// Display the Call-to-Action button if the page is selected in customizer.
 						$selected_page = get_theme_mod( 'sticky_menu_featured_page_select', $this->default_settings['fp_select'] );
+						$page_id       = absint( $selected_page );
+						$show_cta      = 'custom-url' === $selected_page || ( $page_id > 0 && 'publish' === get_post_status( $page_id ) );
 
-						if ( 'none' !== $selected_page ) :
+						if ( $show_cta ) :
 							$cta = array();
 							$cta['target'] = get_theme_mod( 'sticky_menu_featured_page_open_in_new_window', $this->default_settings['fp_new_window'] ) ? '_blank' : '_self';
 							$cta['icon']   = get_theme_mod( 'sticky_menu_featured_page_icon', $this->default_settings['fp_icon'] );
