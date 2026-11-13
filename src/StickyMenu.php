@@ -157,7 +157,7 @@ class StickyMenu {
 									'container'      => false,
 									'fallback_cb'    => false,
 									'menu_class'     => 'main-navigation  js-dropdown',
-									'items_wrap'     => '<ul id="%1$s" class="%2$s" role="menubar">%3$s</ul>',
+									'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
 									'menu_id'        => self::MENU_ID, // this differentiates footer menu from main menu in header
 								) );
 							}
